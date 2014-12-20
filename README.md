@@ -1,4 +1,1 @@
-babel-german
-============
-
-Babel support for documents written in German
+/home/juergen/latex-devel/babel-german/README
