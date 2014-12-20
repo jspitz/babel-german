@@ -1,1 +1,0 @@
-/home/juergen/latex-devel/babel-german/README
