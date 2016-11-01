@@ -51,6 +51,7 @@
 \usepackage[osf]{libertine}
 \usepackage[scaled=0.76]{beramono}
 \usepackage{url}
+\usepackage{array}
 \usepackage{booktabs}
 \usepackage[tableposition=top]{caption}
 \newcommand*\TeXhax{\TeX hax}
@@ -71,15 +72,15 @@
 %
 %\RecordChanges
 %
-% \changes{ngermanb-2.7b}{2014-10-10}{Omit warn­ing about miss­ing swiss­ger­man pat­terns
+% \changes{Version 2.7b}{2014-10-10}{Omit warn­ing about miss­ing swiss­ger­man pat­terns
 %                                     when \texttt{nswissgerman} is not re­quested.}
 %
-% \changes{ngermanb-2.7}{2013/12/13}{Added support for variety \texttt{nswissgerman}.}
-% \changes{ngermanb-2.7}{2013/12/13}{Revised \texttt{naustrian} support.}
-% \changes{ngermanb-2.7}{2013/12/13}{Revised documentation: Turn the \babel{}
+% \changes{Version 2.7}{2013/12/13}{Added support for variety \texttt{nswissgerman}.}
+% \changes{Version 2.7}{2013/12/13}{Revised \texttt{naustrian} support.}
+% \changes{Version 2.7}{2013/12/13}{Revised documentation: Turn the \babel{}
 %          manual chapter into a self-enclosed manual.}
 %
-% \changes{ngermanb-2.6f}{1999/03/24}{Renamed from \file{germanb.ldf};
+% \changes{Version 2.6f}{1999/03/24}{Renamed from \file{germanb.ldf};
 %          language names changed from \texttt{german} and \texttt{austrian}
 %          to \texttt{ngerman} and \texttt{naustrian}.}
 %
@@ -132,40 +133,41 @@
 %    that are provided by \file{ngermanb.ldf}.
 %    \begin{table}[htb]
 %     \begin{center}
+%     \small
 %     \caption{The extra definitions made
 %              by \file{ngermanb.ldf}}\label{tab:german-quote}
-%     \begin{tabular}{lp{.9\textwidth}}
+%     \begin{tabular}{l>{\raggedright}p{.9\textwidth}}
 %      \toprule
-%      |"a| & umlaut \"a (shorthand for |\"a|). Similar shorthands are
-%                  available for all other lower- and uppercase
-%                  vowels (umlauts: |"a|, |"o|, |"u|, |"A|, |"O|,
-%                  |"U|, as well as tremata: |"e|, |"i|, |"E|, |"I|).\\
-%      |"s| & German \ss{} (shorthand for |\ss{}|).                \\
-%      |"z| & German \ss{} (shorthand for |\ss{}|).                \\
-%      |"S| & |SS| (|\uppercase{"s}|, since \ss{} must be written
-%               as SS in uppercase writing).                       \\
-%      |"Z| & |SZ| (|\uppercase{"z}|). An alternative to |"S| common
-%               in traditional spelling, where \ss{} could also
-%               be written as SZ instead of SS in uppercase writing.
-%               Note that, with reformed orthography, the SZ
-%               variant has been deprecated in favour of SS only.  \\
-%      \verb="|= & disable ligature at this position
-%                  (e.\,g. \verb=Auf"|lage=).                      \\
-%      |"-| & an additional breakpoint that does still
-%             allow for hyphenation at the breakpoints preset in
-%             the hyphenation patterns (as opposed to |\-|).       \\
-%      |""| & a breakpoint that does not output a hyphen sign
-%             if the line break is performed (useful for compound
-%             words with hyphen, e.\,g.\ |(Un-)""Sinn|).           \\
-%      |"~| & a compound word mark without a breakpoint. Useful for
-%              cases such as |bergauf und "~ab|.          \\
-%      |"=| & a compound word mark with a breakpoint, allowing
-%             for hyphenation at the other points preset in the
-%             hyphenation patterns (as opposed to plain |-|).      \\
-%      |"`| & German left double quotes (i.\,e. ,,).               \\
-%      |"'| & German right double quotes (i.\,e. ``).              \\
-%      |"<| & French/Swiss left double quotes (i.\,e. <<).        \\
-%      |">| & French/Swiss right double quotes (i.\,e. >>).       \\
+%      |"a|	&	umlaut \"a (shorthand for |\"a|). Similar shorthands are
+%                  	available for all other lower- and uppercase
+%                  	vowels (umlauts: |"a|, |"o|, |"u|, |"A|, |"O|,
+%                  	|"U|, as well as tremata: |"e|, |"i|, |"E|, |"I|).	\tabularnewline
+%      |"s|	&	German \ss{} (shorthand for |\ss{}|).                	\tabularnewline
+%      |"z|	&	German \ss{} (shorthand for |\ss{}|).                	\tabularnewline
+%      |"S|	&	|SS| (|\uppercase{"s}|, since \ss{} must be written
+%               	as SS in uppercase writing).                       	\tabularnewline
+%      |"Z|	&	|SZ| (|\uppercase{"z}|). An alternative to |"S| common
+%               	in traditional spelling, where \ss{} could also
+%               	be written as SZ instead of SS in uppercase writing.
+%               	Note that, with reformed orthography, the SZ
+%               	variant has been deprecated in favour of SS only.  	\tabularnewline
+%     \verb="|=	&	disable ligature at this position
+%                  	(e.\,g. \verb=Auf"|lage=).                      	\tabularnewline
+%      |"-|	&	an additional breakpoint that does still
+%            		allow for hyphenation at the breakpoints preset in
+%             		the hyphenation patterns (as opposed to |\-|).       	\tabularnewline
+%      |""|	&	a breakpoint that does not output a hyphen sign
+%             		if the line break is performed (useful for compound
+%             		words with hyphen, e.\,g.\ |(Un-)""Sinn|).           	\tabularnewline
+%      |"~|	&	a compound word mark without a breakpoint. Useful for
+%              		cases such as |bergauf und "~ab|.          		\tabularnewline
+%      |"=|	&	a compound word mark with a breakpoint, allowing
+%             		for hyphenation at the other points preset in the
+%             		hyphenation patterns (as opposed to plain |-|).      	\tabularnewline
+%      |"`|	&	German left double quotes (i.\,e. ,,).               	\tabularnewline
+%      |"'|	&	German right double quotes (i.\,e. ``).              	\tabularnewline
+%      |"<|	&	French/Swiss left double quotes (i.\,e. <<).        	\tabularnewline
+%      |">|	&	French/Swiss right double quotes (i.\,e. >>).       	\tabularnewline
 %      \bottomrule
 %     \end{tabular}
 %     \end{center}
@@ -176,18 +178,19 @@
 %    provided by \file{ngermanb.ldf}.
 %    \begin{table}[!h]
 %     \begin{center}
+%     \small
 %     \caption{Alternative commands for quotation marks (provided by \babel)}\label{tab:more-quote}
 %     \begin{tabular}{lp{9cm}}
 %      \toprule
-%      |\glqq| & German left double quotes (i.\,e. ,,).   \\
-%      |\grqq| & German right double quotes (i.\,e. ``).  \\
-%      |\glq|  & German left single quotes (i.\,e. ,).    \\
-%      |\grq|  & German right single quotes (i.\,e. `).   \\
-%      |\flqq| & French/Swiss left double quotes (i.\,e. <<). \\
-%      |\frqq| & French/Swiss right double quotes (i.\,e. >>).\\
-%      |\flq|  & French/Swiss left single quotes (i.\,e. \guilsinglleft).  \\
-%      |\frq|  & French/Swiss right single quotes (i.\,e.  \guilsinglright). \\
-%      |\dq|   & the original quotation mark character (i.\,e. |"|).       \\
+%      |\glqq| & German left double quotes (i.\,e. ,,).				\tabularnewline
+%      |\grqq| & German right double quotes (i.\,e. ``).			\tabularnewline
+%      |\glq|  & German left single quotes (i.\,e. ,).				\tabularnewline
+%      |\grq|  & German right single quotes (i.\,e. `).				\tabularnewline
+%      |\flqq| & French/Swiss left double quotes (i.\,e. <<).			\tabularnewline
+%      |\frqq| & French/Swiss right double quotes (i.\,e. >>).			\tabularnewline
+%      |\flq|  & French/Swiss left single quotes (i.\,e. \guilsinglleft).	\tabularnewline
+%      |\frq|  & French/Swiss right single quotes (i.\,e.  \guilsinglright).	\tabularnewline
+%      |\dq|   & the original quotation mark character (i.\,e. |"|).		\tabularnewline
 %      \bottomrule
 %     \end{tabular}
 %     \end{center}
@@ -234,7 +237,7 @@
 %    We set \texttt{naustrian} and \texttt{nswissgerman} as dialects
 %    of \texttt{ngerman}, since they use the same hyphenation patterns
 %    than \texttt{ngerman}.
-%    \changes{ngermanb-2.8}{2016/11/01}{Only add dialects if the respective
+%    \changes{Version 2.8}{2016/11/01}{Only add dialects if the respective
 %                                       variety is loaded}
 %    \begin{macrocode}
 \def\bbl@tempa{naustrian}
@@ -269,21 +272,21 @@
 %    and settings.
 %
 %  \begin{macro}{\@captionsngerman}
-%  \changes{ngermanb-2.6n}{2008/07/06}{Corrected typo
+%  \changes{Version 2.6n}{2008/07/06}{Corrected typo
 %    \cs{captionnsgerman}} 
 %    The macro |\@captionsngerman| defines all strings used in the four
 %    standard document classes provided with \LaTeX\ for German.
 %    This is an internal macro that is inherited and modified by the following
 %    macros for the respective language varieties.
 %
-% \changes{ngermanb-2.7}{2013/12/13}{Split \cs{captionsngerman} from
+% \changes{Version 2.7}{2013/12/13}{Split \cs{captionsngerman} from
 %                                    \cs{captionsnaustrian} and
 %                                    \cs{captionsnswissgerman}.}
-% \changes{ngermanb-2.7}{2013/12/13}{Changed \cs{enclname} in
+% \changes{Version 2.7}{2013/12/13}{Changed \cs{enclname} in
 %                                     \texttt{naustrian} to
 %                                    \emph{Beilage(n)}.}
-% \changes{ngermanb-2.6k}{2000/09/20}{Added \cs{glossaryname}}
-% \changes{ngermanb-2.8}{2016/11/01}{Define trans-variational base captions
+% \changes{Version 2.6k}{2000/09/20}{Added \cs{glossaryname}}
+% \changes{Version 2.8}{2016/11/01}{Define trans-variational base captions
 %                                   which are loaded and modified by the varieties}
 %    \begin{macrocode}
 \@namedef{@captionsngerman}{%
@@ -314,7 +317,7 @@
 %  \begin{macro}{\captionsngerman}
 %    The macro |\captionsngerman| is identical to |\@captionsngerman|,
 %    but only defined if \texttt{ngerman} is requested.
-%  \changes{ngermanb-2.8}{2016/11/01}{Only define \cs{captionsngerman} if
+%  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsngerman} if
 %                                    \texttt{ngerman} is requested.}
 %    \begin{macrocode}
 \def\bbl@tempa{ngerman}
@@ -329,7 +332,7 @@
 %    The macro |\captionsnaustrian| builds on |\@captionsngerman|, but
 %    redefines some strings following Austrian conventions (for the
 %    respective variants, cf. \cite{vwb}).
-%  \changes{ngermanb-2.8}{2016/11/01}{Only define \cs{captionsnaustrian} if
+%  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsnaustrian} if
 %                                    \texttt{naustrian} is requested.}
 %    \begin{macrocode}
 \def\bbl@tempa{naustrian}
@@ -345,7 +348,7 @@
 %    The macro |\captionsnswissgerman| builds on |\@captionsngerman|, but
 %    redefines some strings following Swiss conventions (for the
 %    respective variants, cf. \cite{vwb}).
-%  \changes{ngermanb-2.8}{2016/11/01}{Only define \cs{captionsnswissgerman} if
+%  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsnswissgerman} if
 %                                    \texttt{nswissgerman} is requested.}
 %    \begin{macrocode}
 \def\bbl@tempa{nswissgerman}
@@ -372,7 +375,7 @@
 %  \begin{macro}{\datengerman}
 %    The macro |\datengerman| redefines the command
 %    |\today| to produce German dates.
-%  \changes{ngermanb-2.8}{2016/11/01}{Only define \cs{datengerman} if
+%  \changes{Version 2.8}{2016/11/01}{Only define \cs{datengerman} if
 %                                    \texttt{ngerman} is requested.}
 %    \begin{macrocode}
 \def\bbl@tempa{ngerman}
@@ -384,10 +387,10 @@
 %  \end{macro}
 %
 %  \begin{macro}{\datenswissgerman}
-%    \changes{ngermanb-2.7}{2013/12/13}{Added \cs{datenswissgerman}.}
+%    \changes{Version 2.7}{2013/12/13}{Added \cs{datenswissgerman}.}
 %    The macro |\datenswissgerman| does the same for Swiss German dates.
 %    The result is identical to German.
-%  \changes{ngermanb-2.8}{2016/11/01}{Only define \cs{datenswissgerman} if
+%  \changes{Version 2.8}{2016/11/01}{Only define \cs{datenswissgerman} if
 %                                    \texttt{nswissgerman} is requested.}
 %    \begin{macrocode}
 \def\bbl@tempa{nswissgerman}
@@ -403,7 +406,7 @@
 %    |\today| to produce Austrian versions of the German dates.
 %    Here, the naming of January (,,J\"anner``) differs from the
 %    other German varieties.
-%  \changes{ngermanb-2.8}{2016/11/01}{Only define \cs{datenaustrian} if
+%  \changes{Version 2.8}{2016/11/01}{Only define \cs{datenaustrian} if
 %                                    \texttt{naustrian} is requested.}
 %    \begin{macrocode}
 \def\bbl@tempa{naustrian}
@@ -428,7 +431,7 @@
 %    variety. The macro |\noextrasngerman| is used to cancel the
 %    actions of |\extrasngerman|. |\noextrasnaustrian| and
 %    |\noextrasnswissgerman| behave analoguously.
-%    \changes{ngermanb-2.7}{2013/12/13}{Added \cs{extrasnswissgerman}
+%    \changes{Version 2.7}{2013/12/13}{Added \cs{extrasnswissgerman}
 %                                       and \cs{noextrasnswissgerman}.}
 %
 %    For all German varieties, the character \texttt{"} is
@@ -441,9 +444,9 @@
   \bbl@activate{"}}
 %    \end{macrocode}
 %    Turn the shorthands off again outside of German.
-% \changes{ngermanb-2.6j}{1999/12/16}{Deactivate shorthands ouside of
+% \changes{Version 2.6j}{1999/12/16}{Deactivate shorthands ouside of
 %    German}
-% \changes{ngermanb-2.7}{2013/12/13}{Deactivate shorthands also outside of
+% \changes{Version 2.7}{2013/12/13}{Deactivate shorthands also outside of
 %    \texttt{naustrian} and \texttt{nswissgerman}.}
 %    \begin{macrocode}
 \expandafter\addto\csname noextras\CurrentOption\endcsname{%
@@ -467,7 +470,7 @@
 \expandafter\addto\csname extras\CurrentOption\endcsname{%
   \babel@save\"\umlautlow}
 %    \end{macrocode}
-% \changes{ngermanb-2.7}{2013/12/13}{Do not use \cs{@namedef} when
+% \changes{Version 2.7}{2013/12/13}{Do not use \cs{@namedef} when
 %    \cs{noextras} is already defined and should not be overwritten.}
 %    \begin{macrocode}
 \expandafter\addto\csname noextras\CurrentOption\endcsname{%
@@ -476,14 +479,14 @@
 %    The current 
 %    version of the `new' German hyphenation patterns (\file{dehyphn.tex})
 %    is to be used with |\lefthyphenmin| and |\righthyphenmin| set to~2. 
-% \changes{ngermanb-2.6k}{2000/09/22}{Now use \cs{providehyphenmins} to
+% \changes{Version 2.6k}{2000/09/22}{Now use \cs{providehyphenmins} to
 %    provide a default value}
 %    \begin{macrocode}
 \providehyphenmins{\CurrentOption}{\tw@\tw@}
 %    \end{macrocode}
 %    For German texts we need to assure that |\frenchspacing| is
 %    turned on.
-% \changes{ngermanb-2.6m}{2001/01/26}{Turn frenchspacing on, as in
+% \changes{Version 2.6m}{2001/01/26}{Turn frenchspacing on, as in
 %    \texttt{german.sty}}
 %    \begin{macrocode}
 \expandafter\addto\csname extras\CurrentOption\endcsname{%
@@ -586,7 +589,7 @@
 %
 %  \subsection{\file{naustrian.ldf}, \file{ngerman.ldf} and \file{nswissgerman.ldf}}
 %
-% \changes{ngermanb-2.7}{2013/12/13}{Generate portmanteau files \file{naustrian.ldf},
+% \changes{Version 2.7}{2013/12/13}{Generate portmanteau files \file{naustrian.ldf},
 %            \file{ngerman.ldf} and \file{nswissgerman.ldf}.}
 %
 %  \Babel\ expects a \file{\langvar{}.ldf} file for each \langvar. So we create portmanteau
@@ -617,12 +620,12 @@
 %        Berlin, New York: De Gruyter.
 %    \bibitem{babel} Braams, Johannes and Bezos, Javier:
 %       \emph{Babel}.
-%       \url{http://mirrors.ctan.org/macros/latex/required/babel/base/babel.pdf}.
+%       \url{http://www.ctan.org/pkg/babel}.
 %    \bibitem{HP} Partl, Hubert:
 %      \emph{German \TeX}, \emph{TUGboat} 9 (1988) \#1, p.~70--72.
 %    \bibitem{gerdoc} Raichle, Bernd:
-%       \emph{Kurzbeschreibung german.sty und ngerman.sty (Version 2.5)}.
-%       \url{http://mirrors.ctan.org/language/german/gerdoc.pdf}.
+%       \emph{German}.
+%       \url{http://www.ctan.org/pkg/german}.
 %  \end{thebibliography}
 %
 % \Finale
