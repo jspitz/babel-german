@@ -28,7 +28,7 @@
 %                       by Bernd Raichle, Hubert Partl et.al.
 %
 % \fi
-% \CheckSum{294}
+% \CheckSum{370}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -51,8 +51,8 @@
 \usepackage[osf]{libertine}
 \usepackage[scaled=0.76]{beramono}
 \usepackage{url}
-\font\manual=logo10 % font used for the METAFONT logo, etc.
-\newcommand*\MF{{\manual META}\-{\manual FONT}}
+\usepackage{booktabs}
+\usepackage[tableposition=top]{caption}
 \newcommand*\TeXhax{\TeX hax}
 \newcommand*\babel{\textsf{babel}}
 \newcommand*\Babel{\textsf{Babel}}
@@ -125,15 +125,17 @@
 %    \section{Shorthands}
 %
 %    For all three varieties of German, the character |"| is made active
-%    in order to provide some shorthand macros.
-%    The shorthands provide access to some frequently
-%    used special characters as well as some further possibilities
-%    to control hyphenation, to break lines and to deal with ligatures.
+%    in order to provide some shorthand macros for frequently used special
+%    characters as well for better control of hyphenation, line breaks and
+%    ligatures.
 %    Table~\ref{tab:german-quote} provides an overview of the shorthands
 %    that are provided by \file{ngermanb.ldf}.
 %    \begin{table}[htb]
 %     \begin{center}
-%     \begin{tabular}{lp{.75\textwidth}}
+%     \caption{The extra definitions made
+%              by \file{ngermanb.ldf}}\label{tab:german-quote}
+%     \begin{tabular}{lp{.9\textwidth}}
+%      \toprule
 %      |"a| & umlaut \"a (shorthand for |\"a|). Similar shorthands are
 %                  available for all other lower- and uppercase
 %                  vowels (umlauts: |"a|, |"o|, |"u|, |"A|, |"O|,
@@ -164,18 +166,19 @@
 %      |"'| & German right double quotes (i.\,e. ``).              \\
 %      |"<| & French/Swiss left double quotes (i.\,e. <<).        \\
 %      |">| & French/Swiss right double quotes (i.\,e. >>).       \\
+%      \bottomrule
 %     \end{tabular}
-%     \caption{The extra definitions made
-%              by \file{ngermanb.ldf}}\label{tab:german-quote}
 %     \end{center}
 %    \end{table}
 %
 %    Table~\ref{tab:more-quote} lists some macros for quotation marks
 %    that might be used as an alternative to the quotation mark shorthands
 %    provided by \file{ngermanb.ldf}.
-%    \begin{table}[htb]
+%    \begin{table}[!h]
 %     \begin{center}
-%     \begin{tabular}{lp{8cm}}
+%     \caption{Alternative commands for quotation marks (provided by \babel)}\label{tab:more-quote}
+%     \begin{tabular}{lp{9cm}}
+%      \toprule
 %      |\glqq| & German left double quotes (i.\,e. ,,).   \\
 %      |\grqq| & German right double quotes (i.\,e. ``).  \\
 %      |\glq|  & German left single quotes (i.\,e. ,).    \\
@@ -185,8 +188,8 @@
 %      |\flq|  & French/Swiss left single quotes (i.\,e. \guilsinglleft).  \\
 %      |\frq|  & French/Swiss right single quotes (i.\,e.  \guilsinglright). \\
 %      |\dq|   & the original quotation mark character (i.\,e. |"|).       \\
+%      \bottomrule
 %     \end{tabular}
-%     \caption{Alternative commands for quotation marks (provided by \babel)}\label{tab:more-quote}
 %     \end{center}
 %    \end{table}
 %
@@ -223,7 +226,7 @@
 %
 %    \begin{macrocode}
 \ifx\l@ngerman\@undefined
-  \@nopatterns{ngerman}
+  \@nopatterns{German (new orthography)}
   \adddialect\l@ngerman0
 \fi
 %    \end{macrocode}
@@ -231,9 +234,33 @@
 %    We set \texttt{naustrian} and \texttt{nswissgerman} as dialects
 %    of \texttt{ngerman}, since they use the same hyphenation patterns
 %    than \texttt{ngerman}.
+%    \changes{ngermanb-2.8}{2016/11/01}{Only add dialects if the respective
+%                                       variety is loaded}
 %    \begin{macrocode}
-\adddialect\l@naustrian\l@ngerman
-\adddialect\l@nswissgerman\l@ngerman
+\def\bbl@tempa{naustrian}
+\ifx\CurrentOption\bbl@tempa
+  \ifx\l@naustrian\@undefined
+    \ifx\l@ngerman\@undefined
+      \@nopatterns{Austrian (new orthography) and German (new orthography)}
+      \adddialect\l@naustrian0
+    \else
+      \@nopatterns{Austrian}
+      \adddialect\l@naustrian\l@ngerman
+    \fi
+  \fi
+\fi
+\def\bbl@tempa{nswissgerman}
+\ifx\CurrentOption\bbl@tempa
+  \ifx\l@nswissgerman\@undefined
+    \ifx\l@ngerman\@undefined
+      \@nopatterns{Swiss German (new orthography) and German (new orthography)}
+      \adddialect\l@nswissgerman0
+    \else
+      \@nopatterns{Swiss German (new orthography)}
+      \adddialect\l@nswissgerman\l@ngerman
+    \fi
+  \fi
+\fi
 %    \end{macrocode}
 %
 %    \subsection{Language-specific strings (captions)}
@@ -241,11 +268,13 @@
 %    The next step consists of defining macros that provide language specific strings
 %    and settings.
 %
-%  \begin{macro}{\captionsngerman}
-% \changes{ngermanb-2.6n}{2008/07/06}{Corrected typo
+%  \begin{macro}{\@captionsngerman}
+%  \changes{ngermanb-2.6n}{2008/07/06}{Corrected typo
 %    \cs{captionnsgerman}} 
-%    The macro |\captionsngerman| defines all strings used in the four
+%    The macro |\@captionsngerman| defines all strings used in the four
 %    standard document classes provided with \LaTeX\ for German.
+%    This is an internal macro that is inherited and modified by the following
+%    macros for the respective language varieties.
 %
 % \changes{ngermanb-2.7}{2013/12/13}{Split \cs{captionsngerman} from
 %                                    \cs{captionsnaustrian} and
@@ -254,8 +283,10 @@
 %                                     \texttt{naustrian} to
 %                                    \emph{Beilage(n)}.}
 % \changes{ngermanb-2.6k}{2000/09/20}{Added \cs{glossaryname}}
+% \changes{ngermanb-2.8}{2016/11/01}{Define trans-variational base captions
+%                                   which are loaded and modified by the varieties}
 %    \begin{macrocode}
-\@namedef{captionsngerman}{%
+\@namedef{@captionsngerman}{%
   \def\prefacename{Vorwort}%
   \def\refname{Literatur}%
   \def\abstractname{Zusammenfassung}%
@@ -280,40 +311,75 @@
   }
 %    \end{macrocode}
 %  \end{macro}
+%  \begin{macro}{\captionsngerman}
+%    The macro |\captionsngerman| is identical to |\@captionsngerman|,
+%    but only defined if \texttt{ngerman} is requested.
+%  \changes{ngermanb-2.8}{2016/11/01}{Only define \cs{captionsngerman} if
+%                                    \texttt{ngerman} is requested.}
+%    \begin{macrocode}
+\def\bbl@tempa{ngerman}
+\ifx\CurrentOption\bbl@tempa
+  \@namedef{captionsngerman}{%
+    \@nameuse{@captionsngerman}%
+  }
+\fi
+%    \end{macrocode}
+%  \end{macro}
 %  \begin{macro}{\captionsnaustrian}
-%    The macro |\captionsnaustrian| builds on |\captionsngerman|, but
+%    The macro |\captionsnaustrian| builds on |\@captionsngerman|, but
 %    redefines some strings following Austrian conventions (for the
 %    respective variants, cf. \cite{vwb}).
+%  \changes{ngermanb-2.8}{2016/11/01}{Only define \cs{captionsnaustrian} if
+%                                    \texttt{naustrian} is requested.}
 %    \begin{macrocode}
-\@namedef{captionsnaustrian}{%
-  \@nameuse{captionsngerman}
-  \def\enclname{Beilage(n)}%
+\def\bbl@tempa{naustrian}
+\ifx\CurrentOption\bbl@tempa
+  \@namedef{captionsnaustrian}{%
+    \@nameuse{@captionsngerman}%
+    \def\enclname{Beilage(n)}%
   }
+\fi
 %    \end{macrocode}
 %  \end{macro}
 %  \begin{macro}{\captionsnswissgerman}
-%    The macro |\captionsnswissgerman| builds on |\captionsngerman|, but
+%    The macro |\captionsnswissgerman| builds on |\@captionsngerman|, but
 %    redefines some strings following Swiss conventions (for the
 %    respective variants, cf. \cite{vwb}).
+%  \changes{ngermanb-2.8}{2016/11/01}{Only define \cs{captionsnswissgerman} if
+%                                    \texttt{nswissgerman} is requested.}
 %    \begin{macrocode}
-\@namedef{captionsnswissgerman}{%
-  \@nameuse{captionsngerman}
-  \def\enclname{Beilage(n)}%
+\def\bbl@tempa{nswissgerman}
+\ifx\CurrentOption\bbl@tempa
+  \@namedef{captionsnswissgerman}{%
+    \@nameuse{@captionsngerman}%
+    \def\enclname{Beilage(n)}%
   }
+\fi
 %    \end{macrocode}
 %  \end{macro}
 %
 %  \subsection{Date localizations}
 %
-%  \begin{macro}{\datengerman}
-%    The macro |\datengerman| redefines the command
-%    |\today| to produce German dates.
+%  \begin{macro}{\month@ngerman}
+%    The macro |\month@ngerman| defines German month names for all varieties.
 %    \begin{macrocode}
 \def\month@ngerman{\ifcase\month\or
   Januar\or Februar\or M\"arz\or April\or Mai\or Juni\or
   Juli\or August\or September\or Oktober\or November\or Dezember\fi}
-\def\datengerman{\def\today{\number\day.~\month@ngerman
-    \space\number\year}}
+%    \end{macrocode}
+%  \end{macro}
+%
+%  \begin{macro}{\datengerman}
+%    The macro |\datengerman| redefines the command
+%    |\today| to produce German dates.
+%  \changes{ngermanb-2.8}{2016/11/01}{Only define \cs{datengerman} if
+%                                    \texttt{ngerman} is requested.}
+%    \begin{macrocode}
+\def\bbl@tempa{ngerman}
+\ifx\CurrentOption\bbl@tempa
+  \def\datengerman{\def\today{\number\day.~\month@ngerman
+      \space\number\year}}
+\fi
 %    \end{macrocode}
 %  \end{macro}
 %
@@ -321,9 +387,14 @@
 %    \changes{ngermanb-2.7}{2013/12/13}{Added \cs{datenswissgerman}.}
 %    The macro |\datenswissgerman| does the same for Swiss German dates.
 %    The result is identical to German.
+%  \changes{ngermanb-2.8}{2016/11/01}{Only define \cs{datenswissgerman} if
+%                                    \texttt{nswissgerman} is requested.}
 %    \begin{macrocode}
-\def\datenswissgerman{\def\today{\number\day.~\month@ngerman
-    \space\number\year}}
+\def\bbl@tempa{nswissgerman}
+\ifx\CurrentOption\bbl@tempa
+  \def\datenswissgerman{\def\today{\number\day.~\month@ngerman
+      \space\number\year}}
+\fi
 %    \end{macrocode}
 %  \end{macro}
 %
@@ -332,9 +403,14 @@
 %    |\today| to produce Austrian versions of the German dates.
 %    Here, the naming of January (,,J\"anner``) differs from the
 %    other German varieties.
+%  \changes{ngermanb-2.8}{2016/11/01}{Only define \cs{datenaustrian} if
+%                                    \texttt{naustrian} is requested.}
 %    \begin{macrocode}
-\def\datenaustrian{\def\today{\number\day.~\ifnum1=\month
-  J\"anner\else \month@ngerman\fi \space\number\year}}
+\def\bbl@tempa{naustrian}
+\ifx\CurrentOption\bbl@tempa
+  \def\datenaustrian{\def\today{\number\day.~\ifnum1=\month
+    J\"anner\else \month@ngerman\fi \space\number\year}}
+\fi
 %    \end{macrocode}
 %  \end{macro}
 %

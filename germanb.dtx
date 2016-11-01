@@ -24,7 +24,7 @@
 % 
 % The Current Maintainer of this work is Juergen Spitzmueller.
 % \fi
-% \CheckSum{413}
+% \CheckSum{470}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -47,8 +47,8 @@
 \usepackage[osf]{libertine}
 \usepackage[scaled=0.76]{beramono}
 \usepackage{url}
-\font\manual=logo10 % font used for the METAFONT logo, etc.
-\newcommand*\MF{{\manual META}\-{\manual FONT}}
+\usepackage{booktabs}
+\usepackage[tableposition=top]{caption}
 \newcommand*\TeXhax{\TeX hax}
 \newcommand*\babel{\textsf{babel}}
 \newcommand*\Babel{\textsf{Babel}}
@@ -165,18 +165,21 @@
 %
 %    For all three varieties of German, the character |"| is made active
 %    in order to provide some shorthand macros.
-%    One purpose of these shorthands is to get control over a
-%    peculiarity of traditional German spelling: some consonantial
-%    character combinations change in the context of hyphenations.
-%    Furthermore, the shorthands provide access to some frequently
-%    used special characters as well as some further possibilities
-%    to control hyphenation, to break lines and to deal with ligatures.
+%    Some of these shorthands address a peculiarity of traditional German
+%    spelling: consonantial character combinations that change in the context
+%    of hyphenations.
+%    Other shorthands are provided for frequently used
+%    special characters as well for better control of hyphenation,
+%    line breaks and ligatures.
 %    Table~\ref{tab:german-quote} provides an overview of the shorthands
 %    that are provided by \file{germanb.ldf}.
 %
 %    \begin{table}[htb]
 %     \begin{center}
-%     \begin{tabular}{lp{.75\textwidth}}
+%     \small
+%     \caption{Shorthands provided by \file{germanb.ldf}}\label{tab:german-quote}
+%     \begin{tabular}{lp{.9\textwidth}}
+%      \toprule
 %      |"a| & umlaut \"a (shorthand for |\"a|). Similar shorthands are
 %                  available for all other lower- and uppercase
 %                  vowels (umlauts: |"a|, |"o|, |"u|, |"A|, |"O|,
@@ -208,17 +211,20 @@
 %      |"'| & German right double quotes (i.\,e. ``).              \\
 %      |"<| & French/Swiss left double quotes (i.\,e. <<).   \\
 %      |">| & French/Swiss right double quotes (i.\,e. >>).  \\
+%     \bottomrule
 %     \end{tabular}
-%     \caption{Shorthands provided by \file{germanb.ldf}}\label{tab:german-quote}
 %     \end{center}
 %    \end{table}
 %
 %    Table~\ref{tab:more-quote} lists some macros for quotation marks
 %    that might be used as an alternative to the quotation mark shorthands
 %    provided by \file{germanb.ldf}.
-%    \begin{table}[htb]
+%    \begin{table}[!h]
 %     \begin{center}
-%     \begin{tabular}{lp{8cm}}
+%     \small
+%     \caption{Alternative commands for quotation marks (provided by \babel)}\label{tab:more-quote}
+%     \begin{tabular}{lp{9cm}}
+%      \toprule
 %      |\glqq| & German left double quotes (i.\,e. ,,).   \\
 %      |\grqq| & German right double quotes (i.\,e. ``).  \\
 %      |\glq|  & German left single quotes (i.\,e. ,).    \\
@@ -228,8 +234,8 @@
 %      |\flq|  & French/Swiss left single quotes (i.\,e. \guilsinglleft).  \\
 %      |\frq|  & French/Swiss right single quotes (i.\,e.  \guilsinglright). \\
 %      |\dq|   & the original quotation mark character (i.\,e. |"|).       \\
+%      \bottomrule
 %     \end{tabular}
-%     \caption{Alternative commands for quotation marks (provided by \babel)}\label{tab:more-quote}
 %     \end{center}
 %    \end{table}
 %
@@ -288,7 +294,7 @@
 %    produce the warning}
 %    \begin{macrocode}
 \ifx\l@german\@undefined
-  \@nopatterns{German}
+  \@nopatterns{German (trad. orthography)}
   \adddialect\l@german0
 \fi
 %    \end{macrocode}
@@ -298,24 +304,36 @@
 %    Germany's Standard German. 
 % \changes{germanb-2.0}{1991/04/23}{Now use \cs{adddialect} for
 %    austrian}
+% \changes{germanb-2.8}{2016/11/01}{Only add Austrian dialect if \texttt{austrian} is loaded}
 %    \begin{macrocode}
-\adddialect\l@austrian\l@german
+\def\bbl@tempa{austrian}
+\ifx\CurrentOption\bbl@tempa
+  \ifx\l@austrian\@undefined
+    \ifx\l@german\@undefined
+      \@nopatterns{Austrian (trad. orthography) and German (trad. orthography)}
+      \adddialect\l@austrian0
+    \else
+      \@nopatterns{Austrian (trad. orthography)}
+      \adddialect\l@austrian\l@german
+    \fi
+  \fi
+\fi
 %    \end{macrocode}
 %
 %    For the Swiss variety, we attempt to load the specific
 %    \texttt{swissgerman} hyphenation patterns and fall back to
 %    \texttt{german} if those are not available.
 % \changes{germanb-2.7b}{2014/10/10}{Do not warn about missing swissgerman patterns
-%    if swissgerman is not loaded}
+%    if \texttt{swissgerman} is not loaded}
 %    \begin{macrocode}
 \def\bbl@tempa{swissgerman}
 \ifx\CurrentOption\bbl@tempa
   \ifx\l@swissgerman\@undefined
     \ifx\l@german\@undefined
-      \@nopatterns{swissgerman and german}
+      \@nopatterns{Swiss German (trad. orthography) and German (trad. orthography)}
       \adddialect\l@swissgerman0
     \else
-      \@nopatterns{swissgerman}
+      \@nopatterns{Swiss German (trad. orthography)}
       \adddialect\l@swissgerman\l@german
     \fi
   \fi
@@ -327,9 +345,11 @@
 %    The next step consists of defining macros that provide language specific strings
 %    and settings.
 %
-%  \begin{macro}{\captionsgerman}
-%    The macro |\captionsgerman| defines all strings used in the four
+%  \begin{macro}{\@captionsgerman}
+%    The macro |\@captionsgerman| defines all strings used in the four
 %    standard document classes provided with \LaTeX\ for German.
+%    This is an internal macro that is inherited and modified by the following
+%    macros for the respective language varieties.
 %
 % \changes{germanb-2.2}{1991/06/06}{Removed \cs{global} definitions}
 % \changes{germanb-2.2}{1991/06/06}{\cs{pagename} should be
@@ -349,8 +369,10 @@
 % \changes{germanb-2.7}{2013/12/13}{Changed \cs{enclname} in
 %                                    \texttt{austrian} to
 %                                    \emph{Beilage(n)}.}
+% \changes{germanb-2.8}{2016/11/01}{Define trans-variational base captions
+%                                   which are loaded and modified by the varieties}
 %    \begin{macrocode}
-\@namedef{captionsgerman}{%
+\@namedef{@captionsgerman}{%
   \def\prefacename{Vorwort}%
   \def\refname{Literatur}%
   \def\abstractname{Zusammenfassung}%
@@ -375,30 +397,63 @@
   }
 %    \end{macrocode}
 %  \end{macro}
+%  \begin{macro}{\captionsgerman}
+%    The macro |\captionsgerman| is identical to |\@captionsgerman|,
+%    but only defined if \texttt{german} is requested.
+%  \changes{germanb-2.8}{2016/11/01}{Only define \cs{captionsgerman} if
+%                                    \texttt{german} is requested.}
+%    \begin{macrocode}
+\def\bbl@tempa{german}
+\ifx\CurrentOption\bbl@tempa
+  \@namedef{captionsgerman}{%
+    \@nameuse{@captionsgerman}%
+  }
+\fi
+%    \end{macrocode}
+%  \end{macro}
 %  \begin{macro}{\captionsaustrian}
-%    The macro |\captionsaustrian| builds on |\captionsgerman|, but
+%    The macro |\captionsaustrian| builds on |\@captionsgerman|, but
 %    redefines some strings following Austrian conventions (for the
 %    respective variants, cf. \cite{vwb}).
+%  \changes{germanb-2.8}{2016/11/01}{Only define \cs{captionsaustrian} if
+%                                    \texttt{austrian} is requested.}
 %    \begin{macrocode}
-\@namedef{captionsaustrian}{%
-  \@nameuse{captionsgerman}
-  \def\enclname{Beilage(n)}%
+\def\bbl@tempa{austrian}
+\ifx\CurrentOption\bbl@tempa
+  \@namedef{captionsaustrian}{%
+    \@nameuse{@captionsgerman}%
+    \def\enclname{Beilage(n)}%
   }
+\fi
 %    \end{macrocode}
 %  \end{macro}
 %  \begin{macro}{\captionsswissgerman}
-%    The macro |\captionsswissgerman| builds on |\captionsgerman|, but
+%    The macro |\captionsswissgerman| builds on |\@captionsgerman|, but
 %    redefines some strings following Swiss conventions (for the
 %    respective variants, cf. \cite{vwb}).
+%  \changes{germanb-2.8}{2016/11/01}{Only define \cs{captionsswissgerman} if
+%                                    \texttt{swissgerman} is requested.}
 %    \begin{macrocode}
-\@namedef{captionsswissgerman}{%
-  \@nameuse{captionsgerman}
-  \def\enclname{Beilage(n)}%
+\def\bbl@tempa{swissgerman}
+\ifx\CurrentOption\bbl@tempa
+  \@namedef{captionsswissgerman}{%
+    \@nameuse{@captionsgerman}%
+    \def\enclname{Beilage(n)}%
   }
+\fi
 %    \end{macrocode}
 %  \end{macro}
 %
 %  \subsection{Date localizations}
+%
+%  \begin{macro}{\month@german}
+%    The macro |\month@german| defines German month names for all varieties.
+%    \begin{macrocode}
+\def\month@german{\ifcase\month\or
+  Januar\or Februar\or M\"arz\or April\or Mai\or Juni\or
+  Juli\or August\or September\or Oktober\or November\or Dezember\fi}
+%    \end{macrocode}
+%  \end{macro}
 %
 %  \begin{macro}{\dategerman}
 %    The macro |\dategerman| redefines the command
@@ -408,12 +463,14 @@
 %    \cs{today} to save memory}
 % \changes{germanb-2.6f}{1998/03/28}{use \cs{def} instead of
 %    \cs{edef}}
+%  \changes{germanb-2.8}{2016/11/01}{Only define \cs{dategerman} if
+%                                    \texttt{german} is requested.}
 %    \begin{macrocode}
-\def\month@german{\ifcase\month\or
-  Januar\or Februar\or M\"arz\or April\or Mai\or Juni\or
-  Juli\or August\or September\or Oktober\or November\or Dezember\fi}
-\def\dategerman{\def\today{\number\day.~\month@german
-    \space\number\year}}
+\def\bbl@tempa{german}
+\ifx\CurrentOption\bbl@tempa
+  \def\dategerman{\def\today{\number\day.~\month@german
+      \space\number\year}}
+\fi
 %    \end{macrocode}
 %  \end{macro}
 %
@@ -421,9 +478,14 @@
 %    \changes{germanb-2.7}{2013/12/13}{Added \cs{dateswissgerman}.}
 %    The macro |\dateswissgerman| does the same for Swiss German dates.
 %    The result is identical to German.
+%    \changes{germanb-2.8}{2016/11/01}{Only define \cs{dateswissgerman} if
+%                                      \texttt{swissgerman} is requested.}
 %    \begin{macrocode}
-\def\dateswissgerman{\def\today{\number\day.~\month@german
-    \space\number\year}}
+\def\bbl@tempa{swissgerman}
+\ifx\CurrentOption\bbl@tempa
+  \def\dateswissgerman{\def\today{\number\day.~\month@german
+      \space\number\year}}
+\fi
 %    \end{macrocode}
 %  \end{macro}
 %
@@ -436,9 +498,14 @@
 %    \cs{today} to save memory}
 % \changes{germanb-2.6f}{1998/03/28}{use \cs{def} instead of
 %    \cs{edef}}
+%  \changes{germanb-2.8}{2016/11/01}{Only define \cs{dateaustrian} if
+%                                    \texttt{austrian} is requested.}
 %    \begin{macrocode}
-\def\dateaustrian{\def\today{\number\day.~\ifnum1=\month
-  J\"anner\else \month@german\fi \space\number\year}}
+\def\bbl@tempa{austrian}
+\ifx\CurrentOption\bbl@tempa
+  \def\dateaustrian{\def\today{\number\day.~\ifnum1=\month
+    J\"anner\else \month@german\fi \space\number\year}}
+\fi
 %    \end{macrocode}
 %  \end{macro}
 %
