@@ -3,7 +3,7 @@ The babel-german bundle
 
 German language support for the babel multilingual package
 
-Copyright 1989--2014 Johannes L. Braams
+Copyright 1989--2016 Johannes L. Braams
                      Bernd Raichle
                      Walter Schmidt,
                      Jürgen Spitzmüller
@@ -70,5 +70,4 @@ ngermanb.pdf (new orthography) for usage instructions.
 
 See the included manuals germanb.pdf (traditional orthography) and
 ngermanb.pdf (new orthography), section "Change History".
-
 

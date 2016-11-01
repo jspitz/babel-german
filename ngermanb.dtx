@@ -2,10 +2,10 @@
 %
 % File `ngermanb.dtx'
 %
-% Copyright 1989--2014 Johannes L. Braams
-%                     Bernd Raichle
-%                     Walter Schmidt,
-%                     Juergen Spitzmueller
+% Copyright 1989--2016 Johannes L. Braams
+%                      Bernd Raichle
+%                      Walter Schmidt,
+%                      Juergen Spitzmueller
 % All rights reserved.
 % 
 % This file is part of the babel-german bundle,
@@ -42,12 +42,14 @@
 %<germanb>\ProvidesLanguage{ngermanb}
 %\fi
 %\ProvidesFile{ngermanb.dtx}
-        [2014/10/10 v2.7b German support for babel (new orthography)]
+        [2016/11/01 v2.8 German support for babel (new orthography)]
 %\iffalse
 %
 %<*filedriver>
 \documentclass{ltxdoc}
-\usepackage{bera}
+\usepackage[T1]{fontenc}
+\usepackage[osf]{libertine}
+\usepackage[scaled=0.76]{beramono}
 \usepackage{url}
 \font\manual=logo10 % font used for the METAFONT logo, etc.
 \newcommand*\MF{{\manual META}\-{\manual FONT}}
@@ -68,6 +70,9 @@
 % \GetFileInfo{ngermanb.dtx}
 %
 %\RecordChanges
+%
+% \changes{ngermanb-2.7b}{2014-10-10}{Omit warn­ing about miss­ing swiss­ger­man pat­terns
+%                                     when \texttt{nswissgerman} is not re­quested.}
 %
 % \changes{ngermanb-2.7}{2013/12/13}{Added support for variety \texttt{nswissgerman}.}
 % \changes{ngermanb-2.7}{2013/12/13}{Revised \texttt{naustrian} support.}

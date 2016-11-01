@@ -2,10 +2,10 @@
 %
 % File `germanb.dtx'
 % 
-% Copyright 1989--2014 Johannes L. Braams
-%                     Bernd Raichle
-%                     Walter Schmidt,
-%                     Juergen Spitzmueller
+% Copyright 1989--2016 Johannes L. Braams
+%                      Bernd Raichle
+%                      Walter Schmidt,
+%                      Juergen Spitzmueller
 % All rights reserved.
 % 
 % This file is part of the babel-german bundle,
@@ -38,12 +38,14 @@
 %<germanb>\ProvidesLanguage{germanb}
 %\fi
 %\ProvidesFile{germanb.dtx}
-        [2014/10/10 v2.7b German support for babel (traditional orthography)]
+        [2016/11/01 v2.8 German support for babel (traditional orthography)]
 %\iffalse
 %
 %<*filedriver>
 \documentclass{ltxdoc}
-\usepackage{bera}
+\usepackage[T1]{fontenc}
+\usepackage[osf]{libertine}
+\usepackage[scaled=0.76]{beramono}
 \usepackage{url}
 \font\manual=logo10 % font used for the METAFONT logo, etc.
 \newcommand*\MF{{\manual META}\-{\manual FONT}}
@@ -65,45 +67,61 @@
 %
 %\RecordChanges
 %
-% \changes{germanb-1.0a}{1990/05/14}{Incorporated Nico's comments}
-% \changes{germanb-1.0b}{1990/05/22}{fixed typo in definition for
-%    austrian language found by Werenfried Spit
-%    \texttt{nspit@fys.ruu.nl}}
-% \changes{germanb-1.0c}{1990/07/16}{Fixed some typos}
-% \changes{germanb-1.1}{1990/07/30}{When using PostScript fonts with
-%    the Adobe fontencoding, the dieresis-accent is located elsewhere,
-%    modified germanb}
-% \changes{germanb-1.1a}{1990/08/27}{Modified the documentation
-%    somewhat}
-% \changes{germanb-2.0}{1991/04/23}{Modified for babel 3.0}
-% \changes{germanb-2.0a}{1991/05/25}{Removed some problems in change
-%    log}
-% \changes{germanb-2.1}{1991/05/29}{Removed bug found by van der Meer}
-% \changes{germanb-2.2}{1991/06/11}{Removed global assignments,
-%    brought uptodate with \file{german.tex} v2.3d}
-% \changes{germanb-2.2a}{1991/07/15}{Renamed \file{babel.sty} in
-%    \file{babel.com}}
-% \changes{germanb-2.3}{1991/11/05}{Rewritten parts of the code to use
-%    the new features of babel version 3.1}
-% \changes{germanb-2.3e}{1991/11/10}{Brought up-to-date with
-%    \file{german.tex} v2.3e (plus some bug fixes) [br]}
-% \changes{germanb-2.5}{1994/02/08}{Update or \LaTeXe}
-% \changes{germanb-2.5c}{1994/06/26}{Removed the use of \cs{filedate}
-%    and moved the identification after the loading of
-%    \file{babel.def}}
-% \changes{germanb-2.6a}{1995/02/15}{Moved the identification to the
-%    top of the file}
-% \changes{germanb-2.6a}{1995/02/15}{Rewrote the code that handles the
-%    active double quote character}
+% \changes{germanb-2.7}{2013/12/13}{Revised documentation: Turn the \babel{}
+%          manual chapter into a self-enclosed manual.}
+% \changes{germanb-2.7}{2013/12/13}{Added support for variety \texttt{swissgerman}.}
+% \changes{germanb-2.7}{2013/12/13}{Revised \texttt{austrian} support.}
+%
 % \changes{germanb-2.6d}{1996/07/10}{Replaced \cs{undefined} with
 %    \cs{@undefined} and \cs{empty} with \cs{@empty} for consistency
 %    with \LaTeX} 
 % \changes{germanb-2.6d}{1996/10/10}{Moved the definition of
 %    \cs{atcatcode} right to the beginning.}
-% \changes{germanb-2.7}{2013/12/13}{Revised documentation: Turn the \babel{}
-%          manual chapter into a self-enclosed manual.}
-% \changes{germanb-2.7}{2013/12/13}{Added support for variety \texttt{swissgerman}.}
-% \changes{germanb-2.7}{2013/12/13}{Revised \texttt{austrian} support.}
+%
+% \changes{germanb-2.6a}{1995/02/15}{Moved the identification to the
+%    top of the file}
+% \changes{germanb-2.6a}{1995/02/15}{Rewrote the code that handles the
+%    active double quote character}
+%
+% \changes{germanb-2.5c}{1994/06/26}{Removed the use of \cs{filedate}
+%    and moved the identification after the loading of
+%    \file{babel.def}}
+%
+% \changes{germanb-2.5}{1994/02/08}{Update or \LaTeXe}
+%
+% \changes{germanb-2.3e}{1991/11/10}{Brought up-to-date with
+%    \file{german.tex} v2.3e (plus some bug fixes) [br]}
+%
+% \changes{germanb-2.2a}{1991/07/15}{Renamed \file{babel.sty} in
+%    \file{babel.com}}
+%
+% \changes{germanb-2.3}{1991/11/05}{Rewritten parts of the code to use
+%    the new features of babel version 3.1}
+%
+% \changes{germanb-2.2}{1991/06/11}{Removed global assignments,
+%    brought uptodate with \file{german.tex} v2.3d}
+%
+% \changes{germanb-2.1}{1991/05/29}{Removed bug found by van der Meer}
+%
+% \changes{germanb-2.0a}{1991/05/25}{Removed some problems in change
+%    log}
+%
+% \changes{germanb-2.0}{1991/04/23}{Modified for babel 3.0}
+%
+% \changes{germanb-1.1a}{1990/08/27}{Modified the documentation
+%    somewhat}
+%
+% \changes{germanb-1.1}{1990/07/30}{When using PostScript fonts with
+%    the Adobe fontencoding, the dieresis-accent is located elsewhere,
+%    modified germanb}
+%
+% \changes{germanb-1.0c}{1990/07/16}{Fixed some typos}
+%
+% \changes{germanb-1.0b}{1990/05/22}{fixed typo in definition for
+%    austrian language found by Werenfried Spit
+%    \texttt{nspit@fys.ruu.nl}}
+%
+% \changes{germanb-1.0a}{1990/05/14}{Incorporated Nico's comments}
 %
 %  \title{Babel support for the German language (traditional~orthography)}
 %  \author{Johannes Braams \and Bernd Raichle \and Walter Schmidt \and J\"urgen Spitzm\"uller\thanks{%
