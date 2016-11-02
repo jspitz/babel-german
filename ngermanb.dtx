@@ -28,7 +28,7 @@
 %                       by Bernd Raichle, Hubert Partl et.al.
 %
 % \fi
-% \CheckSum{375}
+% \CheckSum{365}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -209,8 +209,8 @@
 %
 %    \subsection{General settings}
 %
-%    If \file{ngermanb.ldf} is read via the \babel\ option \Lopt{ngermanb},
-%    we make it behave as if \Lopt{ngerman} was specified.
+%    If \file{ngermanb.ldf} is read via the deprecated \babel\ option
+%    \Lopt{ngermanb}, we make it behave as if \Lopt{ngerman} was specified.
 % \iffalse
 %<*germanb>
 % \fi
@@ -222,16 +222,16 @@
 %    \end{macrocode}
 %
 %    The macro |\LdfInit| takes care of preventing that this file is
-%    loaded more than once, checking the category code of the
-%    \texttt{@} sign, etc.
+%    loaded more than once with the same option, checking the category
+%    code of the \texttt{@} sign, etc.
 %    \begin{macrocode}
 \LdfInit\CurrentOption{captions\CurrentOption}
 %    \end{macrocode}
 %
 %    If \file{ngermanb.ldf} is read as an option, i.e., by the |\usepackage|
-%    command, \texttt{ngerman} will be an `unknown' language, so we
+%    command, \texttt{ngerman} could be an `unknown' language, so we
 %    have to make it known.  We check for the existence of
-%    |\l@ngerman| to see whether we have to do something here.
+%    |\l@ngerman| and issue a warning if it is unknown.
 %
 %    \begin{macrocode}
 \ifx\l@ngerman\@undefined
@@ -242,32 +242,29 @@
 %
 %    We set \texttt{naustrian} and \texttt{nswissgerman} as dialects
 %    of \texttt{ngerman}, since they use the same hyphenation patterns
-%    than \texttt{ngerman}.
+%    than \texttt{ngerman}. If no \texttt{ngerman} patterns are found,
+%    we issue a warning.
 %    \changes{Version 2.8}{2016/11/01}{Only add dialects if the respective
 %                                       variety is loaded}
+%    \changes{Version 2.9}{2016/11/02}{Do not attempt to load \cs{l@naustrian}
+%                                      or \cs{l@nswissgerman}, which do not exist}
 %    \begin{macrocode}
 \def\bbl@tempa{naustrian}
 \ifx\CurrentOption\bbl@tempa
-  \ifx\l@naustrian\@undefined
-    \ifx\l@ngerman\@undefined
-      \@nopatterns{Austrian (new orthography) and German (new orthography)}
-      \adddialect\l@naustrian0
-    \else
-      \@nopatterns{Austrian}
-      \adddialect\l@naustrian\l@ngerman
-    \fi
+  \ifx\l@ngerman\@undefined
+    \@nopatterns{German (new orthography), needed by Austrian (new orthography)}
+    \adddialect\l@naustrian0
+  \else
+    \adddialect\l@naustrian\l@ngerman
   \fi
 \fi
 \def\bbl@tempa{nswissgerman}
 \ifx\CurrentOption\bbl@tempa
-  \ifx\l@nswissgerman\@undefined
-    \ifx\l@ngerman\@undefined
-      \@nopatterns{Swiss German (new orthography) and German (new orthography)}
-      \adddialect\l@nswissgerman0
-    \else
-      \@nopatterns{Swiss German (new orthography)}
-      \adddialect\l@nswissgerman\l@ngerman
-    \fi
+  \ifx\l@ngerman\@undefined
+    \@nopatterns{German (new orthography), needed by Swiss German (new orthography)}
+    \adddialect\l@nswissgerman0
+  \else
+    \adddialect\l@nswissgerman\l@ngerman
   \fi
 \fi
 %    \end{macrocode}
@@ -337,7 +334,8 @@
 %  \begin{macro}{\captionsnaustrian}
 %    The macro |\captionsnaustrian| builds on |\@captionsngerman|, but
 %    redefines some strings following Austrian conventions (for the
-%    respective variants, cf. \cite{vwb}).
+%    respective variants, cf. \cite{vwb}). It is only defined if
+%    \texttt{naustrian} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsnaustrian} if
 %                                    \texttt{naustrian} is requested.}
 %    \begin{macrocode}
@@ -353,7 +351,8 @@
 %  \begin{macro}{\captionsnswissgerman}
 %    The macro |\captionsnswissgerman| builds on |\@captionsngerman|, but
 %    redefines some strings following Swiss conventions (for the
-%    respective variants, cf. \cite{vwb}).
+%    respective variants, cf. \cite{vwb}). It is only defined if
+%    \texttt{nswissgerman} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsnswissgerman} if
 %                                    \texttt{nswissgerman} is requested.}
 %    \begin{macrocode}
@@ -440,16 +439,28 @@
 %    actions of |\extrasngerman|. |\noextrasnaustrian| and
 %    |\noextrasnswissgerman| behave analoguously.
 %
-%    For all German varieties, the character \texttt{"} is
-%    made active. This is done once, later on its definition may vary.
+%    First, the character \texttt{"} is declared active for all German
+%    varieties. This is done once, later on its definition may vary.
 %    \begin{macrocode}
 \initiate@active@char{"}
+%    \end{macrocode}
+%
+%    Depending on the option with which the language definition file
+%    has been loaded, the macro |\extrasngerman|, |\extrasnaustrian|
+%    or |\extrasnswissgerman| is defined. Each of those is identical:
+%    they load the shorthands defined below and activate the \texttt{"}
+%    character.
+%    \begin{macrocode}
 \@namedef{extras\CurrentOption}{%
   \languageshorthands{ngerman}}
 \expandafter\addto\csname extras\CurrentOption\endcsname{%
   \bbl@activate{"}}
 %    \end{macrocode}
-%    Turn the shorthands off again outside of German.
+%    Next, again depending on the option with which the language definition
+%    file has been loaded, the macro |\noextrasngerman|, |\noextrasnaustrian|
+%    or |\noextrasnswissgerman| is defined. 
+%    These deactivate the \texttt{"} character and thus turn the shorthands
+%    off again outside of the respective variety.
 % \changes{Version 2.6j}{1999/12/16}{Deactivate shorthands outside of
 %    German}
 % \changes{Version 2.7}{2013/12/13}{Deactivate shorthands also outside of

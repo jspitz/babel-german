@@ -24,7 +24,7 @@
 % 
 % The Current Maintainer of this work is Juergen Spitzmueller.
 % \fi
-% \CheckSum{475}
+% \CheckSum{470}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -257,8 +257,8 @@
 %
 %    \subsection{General settings}
 %
-%    If \file{germanb.ldf} is read via the \babel\ option \Lopt{germanb},
-%    we make it behave as if \Lopt{german} was specified.
+%    If \file{germanb.ldf} is read via the deprecated  \babel\ option
+%    \Lopt{germanb}, we make it behave as if \Lopt{german} was specified.
 % \changes{Version 2.6l}{2008/03/17}{Making germanb behave like german
 %    needs some more work besides defining \cs{CurrentOption}}
 % \changes{Version 2.6m}{2008/06/01}{Corrected a typo}
@@ -284,8 +284,8 @@
 %    \end{macrocode}
 %
 %    The macro |\LdfInit| takes care of preventing that this file is
-%    loaded more than once, checking the category code of the
-%    \texttt{@} sign, etc.
+%    loaded more than once with the same option, checking the category
+%    code of the \texttt{@} sign, etc.
 % \changes{Version 2.6d}{1996/11/02}{Now use \cs{LdfInit} to perform
 %    initial checks} 
 %    \begin{macrocode}
@@ -295,7 +295,7 @@
 %    If \file{germanb.ldf} is read as an option, i.e. via |\usepackage|
 %    command, \texttt{german} could be an `unknown' language, so we
 %    have to make it known.  We check for the existence of
-%    |\l@german| to see whether we have to do something here.
+%    |\l@german| and issue a warning if it is unknown.
 %
 % \changes{Version 2.0}{1991/04/23}{Now use \cs{adddialect} if
 %    language undefined}
@@ -313,21 +313,20 @@
 %
 %    We set \texttt{austrian} as a dialect of \texttt{german},
 %    since the Austrian variety uses the same hyphenation patterns as
-%    Germany's Standard German. 
+%    Germany's Standard German. If no German patterns are found, we issue
+%    a warning.
 % \changes{Version 2.0}{1991/04/23}{Now use \cs{adddialect} for
 %    austrian}
 % \changes{Version 2.8}{2016/11/01}{Only add Austrian dialect if \texttt{austrian} is loaded}
+% \changes{Version 2.9}{2016/11/02}{Do not attempt to load \cs{l@austrian}, which does not exist}
 %    \begin{macrocode}
 \def\bbl@tempa{austrian}
 \ifx\CurrentOption\bbl@tempa
-  \ifx\l@austrian\@undefined
-    \ifx\l@german\@undefined
-      \@nopatterns{Austrian (trad. orthography) and German (trad. orthography)}
-      \adddialect\l@austrian0
-    \else
-      \@nopatterns{Austrian (trad. orthography)}
-      \adddialect\l@austrian\l@german
-    \fi
+  \ifx\l@german\@undefined
+    \@nopatterns{German (trad. orthography), needed by Austrian (trad. orthography)}
+    \adddialect\l@austrian0
+  \else
+    \adddialect\l@austrian\l@german
   \fi
 \fi
 %    \end{macrocode}
@@ -335,6 +334,7 @@
 %    For the Swiss variety, we attempt to load the specific
 %    \texttt{swissgerman} hyphenation patterns and fall back to
 %    \texttt{german} if those are not available.
+%    If no patterns are found, we issue a warning.
 % \changes{Version 2.7b}{2014/10/10}{Do not warn about missing swissgerman patterns
 %    if \texttt{swissgerman} is not loaded}
 %    \begin{macrocode}
@@ -426,7 +426,8 @@
 %  \begin{macro}{\captionsaustrian}
 %    The macro |\captionsaustrian| builds on |\@captionsgerman|, but
 %    redefines some strings following Austrian conventions (for the
-%    respective variants, cf. \cite{vwb}).
+%    respective variants, cf. \cite{vwb}). It is only defined if
+%    \texttt{austrian} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsaustrian} if
 %                                    \texttt{austrian} is requested.}
 %    \begin{macrocode}
@@ -442,7 +443,8 @@
 %  \begin{macro}{\captionsswissgerman}
 %    The macro |\captionsswissgerman| builds on |\@captionsgerman|, but
 %    redefines some strings following Swiss conventions (for the
-%    respective variants, cf. \cite{vwb}).
+%    respective variants, cf. \cite{vwb}). It is only defined if
+%    \texttt{swissgerman} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsswissgerman} if
 %                                    \texttt{swissgerman} is requested.}
 %    \begin{macrocode}
@@ -549,16 +551,28 @@
 %    actions of |\extrasgerman|. |\noextrasaustrian| and
 %    |\noextrasswissgerman| behave analoguously.
 %
-%    For all German varieties, the character \texttt{"} is
-%    made active. This is done once, later on its definition may vary.
+%    First, the character \texttt{"} is declared active for all German
+%    varieties. This is done once, later on its definition may vary.
 %    \begin{macrocode}
 \initiate@active@char{"}
+%    \end{macrocode}
+%
+%    Depending on the option with which the language definition file
+%    has been loaded, the macro |\extrasgerman|, |\extrasaustrian|
+%    or |\extrasswissgerman| is defined. Each of those is identical:
+%    they load the shorthands defined below and activate the \texttt{"}
+%    character.
+%    \begin{macrocode}
 \@namedef{extras\CurrentOption}{%
   \languageshorthands{german}}
 \expandafter\addto\csname extras\CurrentOption\endcsname{%
   \bbl@activate{"}}
 %    \end{macrocode}
-%    Turn the shorthands off again outside of German.
+%    Next, again depending on the option with which the language definition
+%    file has been loaded, the macro |\noextrasgerman|, |\noextrasaustrian|
+%    or |\noextrasswissgerman| is defined. 
+%    These deactivate the \texttt{"} character and thus turn the shorthands
+%    off again outside of the respective variety.
 % \changes{Version 2.6i}{1999/12/16}{Deactivate shorthands outside of
 %    German.}
 % \changes{Version 2.7}{2013/12/13}{Deactivate shorthands also outside of
