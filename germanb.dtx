@@ -38,7 +38,7 @@
 %<germanb>\ProvidesLanguage{germanb}
 %\fi
 %\ProvidesFile{germanb.dtx}
-        [2016/11/01 v2.8 German support for babel (traditional orthography)]
+        [2016/11/02 v2.9dev German support for babel (traditional orthography)]
 %\iffalse
 %
 %<*filedriver>
@@ -54,6 +54,7 @@
 \newcommand*\babel{\textsf{babel}}
 \newcommand*\Babel{\textsf{Babel}}
 \newcommand*\langvar{$\langle \it lang \rangle$}
+\newcommand*\graph[1]{$\langle$#1$\rangle$}
 \newcommand*\note[1]{}
 \newcommand*\Lopt[1]{\textsf{#1}}
 \newcommand*\file[1]{\texttt{#1}}
@@ -181,43 +182,48 @@
 %     \caption{Shorthands provided by \file{germanb.ldf}}\label{tab:german-quote}
 %     \begin{tabular}{l>{\raggedright}p{.9\textwidth}}
 %      \toprule
-%      |"a|	& 	umlaut \"a (shorthand for |\"a|). Similar shorthands are
+%      |"a|	& 	Umlaut \graph{\"a} (shorthand for |\"a|). Similar shorthands are
 %                  	available for all other lower- and uppercase
 %                  	vowels (umlauts: |"a|, |"o|, |"u|, |"A|, |"O|,
-%                  	|"U|, as well as tremata: |"e|, |"i|, |"E|, |"I|).	\tabularnewline
-%      |"s|	& 	German \ss{} (shorthand for |\ss{}|).                	\tabularnewline
-%      |"z|	& 	German \ss{} (shorthand for |\ss{}|).                	\tabularnewline
-%      |"ck|	& 	for |ck| to be hyphenated as |k-k|.                  	\tabularnewline
-%      |"ff|	& 	for |ff| to be hyphenated as |ff-f|,
-%                  	this is also implemented for |l|, |m|, |n|, |p|,
-%                 	|r| and |t|.                                     	\tabularnewline
-%      |"S|	& 	|SS| (|\uppercase{"s}|, since \ss{} must be written
-%                  	as SS -- or SZ, see below -- in uppercase writing).	\tabularnewline
-%      |"Z|	& 	|SZ| (|\uppercase{"z}|, since \ss{} must be written
-%                  	as SZ -- or SS, see above -- in uppercase writing).	\tabularnewline
-%     \verb="|= & 	disable ligature at this position
-%                  	(e.\,g. \verb=Auf"|lage=).                      	\tabularnewline
-%      |"-|	& 	an additional breakpoint that does still
+%                  	|"U|; tremata: |"e|, |"i|, |"E|, |"I|).			\tabularnewline
+%      |"s|	& 	German \graph{\ss} (shorthand for |\ss{}|).             \tabularnewline
+%      |"z|	& 	German \graph{\ss} (shorthand for |\ss{}|). 
+% 			The difference to |"s| is the uppercase version.	\tabularnewline
+%      |"ck|	& 	\graph{ck}, hyphenated as \graph{k-k}.			\tabularnewline
+%      |"ff|	& 	\graph{ff}, hyphenated as \graph{ff-f};
+%                  	this is also implemented for \graph{l}, \graph{m}, 
+%                 	\graph{n}, \graph{p}, \graph{r} and \graph{t}. 		\tabularnewline
+%      |"S|	& 	|\uppercase{"s}|, typeset as \graph{SS} (\graph{\ss}
+%			must be written as \graph{SS} [or \graph{SZ}, see below] 
+%			in uppercase writing).					\tabularnewline
+%      |"Z|	& 	|\uppercase{"z}|, typeset as \graph{SZ} (\graph{\ss}
+%			must be written as \graph{SZ} [or \graph{SS}, see above]
+%			in uppercase writing).					\tabularnewline
+%     \verb="|= & 	Disable ligature at this position (e.\,g., at morpheme
+%			boundaries, as in \verb=Auf"|lage=).                 	\tabularnewline
+%      |"-|	& 	An additional breakpoint that does still
 %             		allow for hyphenation at the breakpoints preset in
 %             		the hyphenation patterns (as opposed to |\-|).       	\tabularnewline
-%      |""|	& 	a breakpoint that does not output a hyphen sign
-%             		if the line break is performed (useful for compound
-%             		words with hyphen, e.\,g.\ |(Un-)""Sinn|).           	\tabularnewline
-%      |"~|	& 	a compound word mark without a breakpoint. Useful for
-%              		cases such as |bergauf und "~ab|.          		\tabularnewline
-%      |"=|	& 	a compound word mark with a breakpoint, allowing
+%      |""|	& 	A breakpoint that does not output a hyphen if the line 
+%             		break is performed (useful for compound words with 
+%             		hyphen, e.\,g., |(Un-)""Sinn|).           		\tabularnewline
+%      |"~|	& 	An explicit hyphen without a breakpoint. Useful for
+%              		cases where the hyphen should stick at the following
+%			word, e.\,g., |bergauf und "~ab| .          		\tabularnewline
+%      |"=|	& 	An explicit hyphen with a breakpoint, allowing
 %             		for hyphenation at the other points preset in the
-%             		hyphenation patterns (as opposed to plain |-|).      	\tabularnewline
-%      |"`|	& 	German left double quotes (i.\,e. ,,).               	\tabularnewline
-%      |"'|	& 	German right double quotes (i.\,e. ``).              	\tabularnewline
-%      |"<|	& 	French/Swiss left double quotes (i.\,e. <<).   		\tabularnewline
-%      |">|	& 	French/Swiss right double quotes (i.\,e. >>).  		\tabularnewline
+%             		hyphenation patterns (as opposed to plain |-|);
+%			useful for long compounds.      			\tabularnewline
+%      |"`|	& 	German left double quotes \graph{,,}.               	\tabularnewline
+%      |"'|	& 	German right double quotes \graph{``}.              	\tabularnewline
+%      |"<|	& 	French/Swiss left double quotes \graph{<<}.   		\tabularnewline
+%      |">|	& 	French/Swiss right double quotes \graph{>>}.  		\tabularnewline
 %     \bottomrule
 %     \end{tabular}
 %     \end{center}
 %    \end{table}
 %
-%    Table~\ref{tab:more-quote} lists some macros for quotation marks
+%    Table~\ref{tab:more-quote} lists some \babel\ macros for quotation marks
 %    that might be used as an alternative to the quotation mark shorthands
 %    provided by \file{germanb.ldf}.
 %    \begin{table}[!h]
@@ -226,15 +232,15 @@
 %     \caption{Alternative commands for quotation marks (provided by \babel)}\label{tab:more-quote}
 %     \begin{tabular}{lp{9cm}}
 %      \toprule
-%      |\glqq|	&	German left double quotes (i.\,e. ,,).				\tabularnewline
-%      |\grqq|	&	German right double quotes (i.\,e. ``).				\tabularnewline
-%      |\glq|	&	German left single quotes (i.\,e. ,).				\tabularnewline
-%      |\grq|	&	German right single quotes (i.\,e. `).				\tabularnewline
-%      |\flqq|	&	French/Swiss left double quotes (i.\,e. <<).			\tabularnewline
-%      |\frqq|	&	French/Swiss right double quotes (i.\,e. >>).			\tabularnewline
-%      |\flq|	&	French/Swiss left single quotes (i.\,e. \guilsinglleft).	\tabularnewline
-%      |\frq|	&	French/Swiss right single quotes (i.\,e.  \guilsinglright).	\tabularnewline
-%      |\dq|	&	the original quotation mark character (i.\,e. |"|).		\tabularnewline
+%      |\glqq|	&	German left double quotes \graph{,,}.				\tabularnewline
+%      |\grqq|	&	German right double quotes \graph{``}.				\tabularnewline
+%      |\glq|	&	German left single quotes \graph{,}.				\tabularnewline
+%      |\grq|	&	German right single quotes \graph{`}.				\tabularnewline
+%      |\flqq|	&	French/Swiss left double quotes \graph{<<}.			\tabularnewline
+%      |\frqq|	&	French/Swiss right double quotes \graph{>>}.			\tabularnewline
+%      |\flq|	&	French/Swiss left single quotes \graph{\guilsinglleft}.		\tabularnewline
+%      |\frq|	&	French/Swiss right single quotes \graph{\guilsinglright}.	\tabularnewline
+%      |\dq|	&	The straight quotation mark character \graph{\textquotedbl}.	\tabularnewline
 %      \bottomrule
 %     \end{tabular}
 %     \end{center}
