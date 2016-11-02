@@ -28,7 +28,7 @@
 %                       by Bernd Raichle, Hubert Partl et.al.
 %
 % \fi
-% \CheckSum{370}
+% \CheckSum{375}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -54,6 +54,7 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage[tableposition=top]{caption}
+\usepackage{marginnote}
 \newcommand*\TeXhax{\TeX hax}
 \newcommand*\babel{\textsf{babel}}
 \newcommand*\Babel{\textsf{Babel}}
@@ -62,6 +63,7 @@
 \newcommand*\note[1]{}
 \newcommand*\Lopt[1]{\textsf{#1}}
 \newcommand*\file[1]{\texttt{#1}}
+\newcommand*\newfeature[1]{\marginnote{\footnotesize New feature\\in v.\,#1!}}
 \GlossaryMin = .33\textheight
 
 \begin{document}
@@ -168,6 +170,9 @@
 %             		for hyphenation at the other points preset in the
 %             		hyphenation patterns (as opposed to plain |-|);
 %			useful for long compounds.      			\tabularnewline
+%      |"/|	& 	\newfeature{2.9}A slash that allows for a linebreak. 
+%			As opposed to |\slash{}|, hyphenation at the breakpoints
+%             		preset in the hyphenation patterns is still allowed.	\tabularnewline
 %      |"`|	& 	German left double quotes \graph{,,}.               	\tabularnewline
 %      |"'|	& 	German right double quotes \graph{``}.              	\tabularnewline
 %      |"<|	& 	French/Swiss left double quotes \graph{<<}.   		\tabularnewline
@@ -558,7 +563,8 @@
 \declare@shorthand{ngerman}{"<}{\flqq}
 \declare@shorthand{ngerman}{">}{\frqq}
 %    \end{macrocode}
-%    and some additional commands (hyphenation and ligature control):
+%    and some additional commands (hyphenation, line breaking and ligature control):
+%  \changes{Version 2.9}{2016/11/02}{Add \texttt{"/} shortcut for breakable slash}
 %    \begin{macrocode}
 \declare@shorthand{ngerman}{"-}{\nobreak\-\bbl@allowhyphens}
 \declare@shorthand{ngerman}{"|}{%
@@ -567,6 +573,7 @@
 \declare@shorthand{ngerman}{""}{\hskip\z@skip}
 \declare@shorthand{ngerman}{"~}{\textormath{\leavevmode\hbox{-}}{-}}
 \declare@shorthand{ngerman}{"=}{\penalty\@M-\hskip\z@skip}
+\declare@shorthand{ngerman}{"/}{/\penalty\exhyphenpenalty\hskip\z@skip}
 %    \end{macrocode}
 %
 %  \begin{macro}{\mdqon}

@@ -24,7 +24,7 @@
 % 
 % The Current Maintainer of this work is Juergen Spitzmueller.
 % \fi
-% \CheckSum{470}
+% \CheckSum{475}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -50,6 +50,7 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage[tableposition=top]{caption}
+\usepackage{marginnote}
 \newcommand*\TeXhax{\TeX hax}
 \newcommand*\babel{\textsf{babel}}
 \newcommand*\Babel{\textsf{Babel}}
@@ -58,6 +59,7 @@
 \newcommand*\note[1]{}
 \newcommand*\Lopt[1]{\textsf{#1}}
 \newcommand*\file[1]{\texttt{#1}}
+\newcommand*\newfeature[1]{\marginnote{\footnotesize New feature\\in v.\,#1!}}
 \GlossaryMin = .33\textheight
 
 \begin{document}
@@ -214,6 +216,9 @@
 %             		for hyphenation at the other points preset in the
 %             		hyphenation patterns (as opposed to plain |-|);
 %			useful for long compounds.      			\tabularnewline
+%      |"/|	& 	\newfeature{2.9}A slash that allows for a linebreak. 
+%			As opposed to |\slash{}|, hyphenation at the breakpoints
+%             		preset in the hyphenation patterns is still allowed.	\tabularnewline
 %      |"`|	& 	German left double quotes \graph{,,}.               	\tabularnewline
 %      |"'|	& 	German right double quotes \graph{``}.              	\tabularnewline
 %      |"<|	& 	French/Swiss left double quotes \graph{<<}.   		\tabularnewline
@@ -722,7 +727,8 @@
   {\relax\discretionary{ff-}{f}{ff}\allowhyphens}{f\bbl@nextff}}
 \let\bbl@nextff=f
 %    \end{macrocode}
-%    and some additional commands (hyphenation and ligature control):
+%    and some additional commands (hyphenation, line breaking and ligature control):
+%  \changes{Version 2.9}{2016/11/02}{Add \texttt{"/} shortcut for breakable slash}
 %    \begin{macrocode}
 \declare@shorthand{german}{"-}{\nobreak\-\bbl@allowhyphens}
 \declare@shorthand{german}{"|}{%
@@ -731,6 +737,7 @@
 \declare@shorthand{german}{""}{\hskip\z@skip}
 \declare@shorthand{german}{"~}{\textormath{\leavevmode\hbox{-}}{-}}
 \declare@shorthand{german}{"=}{\penalty\@M-\hskip\z@skip}
+\declare@shorthand{german}{"/}{/\penalty\exhyphenpenalty\hskip\z@skip}
 %    \end{macrocode}
 %
 %  \begin{macro}{\mdqon}
