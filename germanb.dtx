@@ -235,7 +235,7 @@
 %     \begin{center}
 %     \small
 %     \caption{Alternative commands for quotation marks (provided by \babel)}\label{tab:more-quote}
-%     \begin{tabular}{lp{9cm}}
+%     \begin{tabular}{lp{.88\textwidth}}
 %      \toprule
 %      |\glqq|	&	German left double quotes \graph{,,}.				\tabularnewline
 %      |\grqq|	&	German right double quotes \graph{``}.				\tabularnewline
@@ -460,6 +460,7 @@
 %
 %  \begin{macro}{\month@german}
 %    The macro |\month@german| defines German month names for all varieties.
+% \changes{Version 2.3e}{1991/11/10}{Added \cs{month@german}}
 %    \begin{macrocode}
 \def\month@german{\ifcase\month\or
   Januar\or Februar\or M\"arz\or April\or Mai\or Juni\or
@@ -470,7 +471,6 @@
 %  \begin{macro}{\dategerman}
 %    The macro |\dategerman| redefines the command
 %    |\today| to produce German dates.
-% \changes{Version 2.3e}{1991/11/10}{Added \cs{month@german}}
 % \changes{Version 2.6f}{1997/10/01}{Use \cs{edef} to define
 %    \cs{today} to save memory}
 % \changes{Version 2.6f}{1998/03/28}{use \cs{def} instead of
@@ -529,6 +529,10 @@
 % \changes{Version 2.2}{1991/06/11}{Save all redefined macros}
 %  \begin{macro}{\extrasaustrian}
 %  \begin{macro}{\extrasswissgerman}
+%    \changes{Version 2.7}{2013/12/13}{Added \cs{extrasswissgerman}.}
+%  \begin{macro}{\noextrasaustrian}
+%  \begin{macro}{\noextrasswissgerman}
+%    \changes{Version 2.7}{2013/12/13}{Added \cs{noextrasswissgerman}.}
 %  \begin{macro}{\noextrasgerman}
 % \changes{Version 1.1}{1990/07/30}{Added \cs{dieresis}}
 % \changes{Version 2.0b}{1991/05/29}{added some comment chars to
@@ -537,8 +541,6 @@
 %    former state}
 % \changes{Version 2.6d}{1996/07/10}{Construct control sequence
 %    \cs{extrasgerman} or \cs{extrasaustrian} on the fly}
-%  \begin{macro}{\noextrasaustrian}
-%  \begin{macro}{\noextrasswissgerman}
 %
 %    The macros |\extrasgerman|, |\extrasaustrian|
 %    and |\extrasswissgerman|, respectively, will perform all the extra 
@@ -546,8 +548,6 @@
 %    variety. The macro |\noextrasgerman| is used to cancel the
 %    actions of |\extrasgerman|. |\noextrasaustrian| and
 %    |\noextrasswissgerman| behave analoguously.
-%    \changes{Version 2.7}{2013/12/13}{Added \cs{extrasswissgerman}
-%                                       and \cs{noextrasswissgerman}.}
 %
 %    For all German varieties, the character \texttt{"} is
 %    made active. This is done once, later on its definition may vary.

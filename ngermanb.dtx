@@ -75,9 +75,6 @@
 %
 %\RecordChanges
 %
-% \changes{Version 2.7b}{2014-10-10}{Omit warn­ing about miss­ing swiss­ger­man pat­terns
-%                                     when \texttt{nswissgerman} is not re­quested.}
-%
 % \changes{Version 2.7}{2013/12/13}{Added support for variety \texttt{nswissgerman}.}
 % \changes{Version 2.7}{2013/12/13}{Revised \texttt{naustrian} support.}
 % \changes{Version 2.7}{2013/12/13}{Revised documentation: Turn the \babel{}
@@ -189,7 +186,7 @@
 %     \begin{center}
 %     \small
 %     \caption{Alternative commands for quotation marks (provided by \babel)}\label{tab:more-quote}
-%     \begin{tabular}{lp{9cm}}
+%     \begin{tabular}{lp{.88\textwidth}}
 %      \toprule
 %      |\glqq|	&	German left double quotes \graph{,,}.				\tabularnewline
 %      |\grqq|	&	German right double quotes \graph{``}.				\tabularnewline
@@ -428,20 +425,20 @@
 %
 %  \subsection{Extras}
 %
-%  \begin{macro}{\extrasngerman}
 %  \begin{macro}{\extrasnaustrian}
 %  \begin{macro}{\extrasnswissgerman}
-%  \begin{macro}{\noextrasngerman}
+%    \changes{Version 2.7}{2013/12/13}{Added \cs{extrasnswissgerman}.}
+%  \begin{macro}{\extrasngerman}
 %  \begin{macro}{\noextrasnaustrian}
 %  \begin{macro}{\noextrasnswissgerman}
+%    \changes{Version 2.7}{2013/12/13}{Added \cs{noextrasnswissgerman}.}
+%  \begin{macro}{\noextrasngerman}
 %    The macros |\extrasngerman|, |\extrasnaustrian|
 %    and |\extrasnswissgerman|, respectively, will perform all the extra 
 %    definitions needed for the German language or the respective
 %    variety. The macro |\noextrasngerman| is used to cancel the
 %    actions of |\extrasngerman|. |\noextrasnaustrian| and
 %    |\noextrasnswissgerman| behave analoguously.
-%    \changes{Version 2.7}{2013/12/13}{Added \cs{extrasnswissgerman}
-%                                       and \cs{noextrasnswissgerman}.}
 %
 %    For all German varieties, the character \texttt{"} is
 %    made active. This is done once, later on its definition may vary.
@@ -453,7 +450,7 @@
   \bbl@activate{"}}
 %    \end{macrocode}
 %    Turn the shorthands off again outside of German.
-% \changes{Version 2.6j}{1999/12/16}{Deactivate shorthands ouside of
+% \changes{Version 2.6j}{1999/12/16}{Deactivate shorthands outside of
 %    German}
 % \changes{Version 2.7}{2013/12/13}{Deactivate shorthands also outside of
 %    \texttt{naustrian} and \texttt{nswissgerman}.}
