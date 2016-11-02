@@ -561,7 +561,8 @@
 \declare@shorthand{ngerman}{">}{\frqq}
 %    \end{macrocode}
 %    and some additional commands (hyphenation, line breaking and ligature control):
-%  \changes{Version 2.9}{2016/11/02}{Add \texttt{"/} shortcut for breakable slash}
+%  \changes{Version 2.9}{2016/11/02}{Add \texttt{"/} shortcut for breakable slash
+%                                    (taken from \texttt{dutch.ldf})}
 %    \begin{macrocode}
 \declare@shorthand{ngerman}{"-}{\nobreak\-\bbl@allowhyphens}
 \declare@shorthand{ngerman}{"|}{%
@@ -570,7 +571,8 @@
 \declare@shorthand{ngerman}{""}{\hskip\z@skip}
 \declare@shorthand{ngerman}{"~}{\textormath{\leavevmode\hbox{-}}{-}}
 \declare@shorthand{ngerman}{"=}{\penalty\@M-\hskip\z@skip}
-\declare@shorthand{ngerman}{"/}{/\penalty\exhyphenpenalty\hskip\z@skip}
+\declare@shorthand{ngerman}{"/}{\textormath
+  {\bbl@allowhyphens\discretionary{/}{}{/}\bbl@allowhyphens}{}}
 %    \end{macrocode}
 %
 %  \begin{macro}{\mdqon}
