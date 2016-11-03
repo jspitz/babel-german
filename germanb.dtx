@@ -24,7 +24,7 @@
 % 
 % The Current Maintainer of this work is Juergen Spitzmueller.
 % \fi
-% \CheckSum{470}
+% \CheckSum{460}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -257,17 +257,26 @@
 %
 %    \subsection{General settings}
 %
+%    First, we define some helper macros that help us to identify later on
+%    which variety of German we are currently dealing with.
+% \changes{Version 2.9a=Version 2.10}{2016/11/03}{Add helper macros to identify the current option}
+% \iffalse
+%<*germanb>
+% \fi
+%    \begin{macrocode}
+\def\bbl@opt@german{german}
+\def\bbl@opt@germanb{germanb}
+\def\bbl@opt@austrian{austrian}
+\def\bbl@opt@swissgerman{swissgerman}
+%    \end{macrocode}
+%
 %    If \file{germanb.ldf} is read via the deprecated  \babel\ option
 %    \Lopt{germanb}, we make it behave as if \Lopt{german} was specified.
 % \changes{Version 2.6l}{2008/03/17}{Making germanb behave like german
 %    needs some more work besides defining \cs{CurrentOption}}
 % \changes{Version 2.6m}{2008/06/01}{Corrected a typo}
-% \iffalse
-%<*germanb>
-% \fi
 %    \begin{macrocode}
-\def\bbl@tempa{germanb}
-\ifx\CurrentOption\bbl@tempa
+\ifx\CurrentOption\bbl@opt@germanb
   \def\CurrentOption{german}
   \ifx\l@german\@undefined
     \@nopatterns{German}
@@ -320,8 +329,7 @@
 % \changes{Version 2.8}{2016/11/01}{Only add Austrian dialect if \texttt{austrian} is loaded}
 % \changes{Version 2.9}{2016/11/02}{Do not attempt to load \cs{l@austrian}, which does not exist}
 %    \begin{macrocode}
-\def\bbl@tempa{austrian}
-\ifx\CurrentOption\bbl@tempa
+\ifx\CurrentOption\bbl@opt@austrian
   \ifx\l@german\@undefined
     \@nopatterns{German (trad. orthography), needed by Austrian (trad. orthography)}
     \adddialect\l@austrian0
@@ -338,8 +346,7 @@
 % \changes{Version 2.7b}{2014/10/10}{Do not warn about missing swissgerman patterns
 %    if \texttt{swissgerman} is not loaded}
 %    \begin{macrocode}
-\def\bbl@tempa{swissgerman}
-\ifx\CurrentOption\bbl@tempa
+\ifx\CurrentOption\bbl@opt@swissgerman
   \ifx\l@swissgerman\@undefined
     \ifx\l@german\@undefined
       \@nopatterns{Swiss German (trad. orthography) and German (trad. orthography)}
@@ -415,8 +422,7 @@
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsgerman} if
 %                                    \texttt{german} is requested.}
 %    \begin{macrocode}
-\def\bbl@tempa{german}
-\ifx\CurrentOption\bbl@tempa
+\ifx\CurrentOption\bbl@opt@german
   \@namedef{captionsgerman}{%
     \@nameuse{@captionsgerman}%
   }
@@ -431,8 +437,7 @@
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsaustrian} if
 %                                    \texttt{austrian} is requested.}
 %    \begin{macrocode}
-\def\bbl@tempa{austrian}
-\ifx\CurrentOption\bbl@tempa
+\ifx\CurrentOption\bbl@opt@austrian
   \@namedef{captionsaustrian}{%
     \@nameuse{@captionsgerman}%
     \def\enclname{Beilage(n)}%
@@ -448,8 +453,7 @@
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsswissgerman} if
 %                                    \texttt{swissgerman} is requested.}
 %    \begin{macrocode}
-\def\bbl@tempa{swissgerman}
-\ifx\CurrentOption\bbl@tempa
+\ifx\CurrentOption\bbl@opt@swissgerman
   \@namedef{captionsswissgerman}{%
     \@nameuse{@captionsgerman}%
     \def\enclname{Beilage(n)}%
@@ -472,7 +476,8 @@
 %
 %  \begin{macro}{\dategerman}
 %    The macro |\dategerman| redefines the command
-%    |\today| to produce German dates.
+%    |\today| to produce German dates. It is only defined if
+%    \texttt{german} is requested.
 % \changes{Version 2.6f}{1997/10/01}{Use \cs{edef} to define
 %    \cs{today} to save memory}
 % \changes{Version 2.6f}{1998/03/28}{use \cs{def} instead of
@@ -480,8 +485,7 @@
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{dategerman} if
 %                                    \texttt{german} is requested.}
 %    \begin{macrocode}
-\def\bbl@tempa{german}
-\ifx\CurrentOption\bbl@tempa
+\ifx\CurrentOption\bbl@opt@german
   \def\dategerman{\def\today{\number\day.~\month@german
       \space\number\year}}
 \fi
@@ -490,13 +494,13 @@
 %
 %  \begin{macro}{\dateswissgerman}
 %    \changes{Version 2.7}{2013/12/13}{Added \cs{dateswissgerman}.}
-%    The macro |\dateswissgerman| does the same for Swiss German dates.
+%    The macro |\dateswissgerman| does the same for Swiss German dates. It
+%    is only defined if \texttt{swissgerman} is requested.
 %    The result is identical to German.
 %    \changes{Version 2.8}{2016/11/01}{Only define \cs{dateswissgerman} if
 %                                      \texttt{swissgerman} is requested.}
 %    \begin{macrocode}
-\def\bbl@tempa{swissgerman}
-\ifx\CurrentOption\bbl@tempa
+\ifx\CurrentOption\bbl@opt@swissgerman
   \def\dateswissgerman{\def\today{\number\day.~\month@german
       \space\number\year}}
 \fi
@@ -507,7 +511,8 @@
 %    The macro |\dateaustrian| redefines the command
 %    |\today| to produce Austrian versions of the German dates.
 %    Here, the naming of January (,,J\"anner``) differs from the
-%    other German varieties.
+%    other German varieties. The macro is only defined if
+%    \texttt{austrian} is requested.
 % \changes{Version 2.6f}{1997/10/01}{Use \cs{edef} to define
 %    \cs{today} to save memory}
 % \changes{Version 2.6f}{1998/03/28}{use \cs{def} instead of
@@ -515,8 +520,7 @@
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{dateaustrian} if
 %                                    \texttt{austrian} is requested.}
 %    \begin{macrocode}
-\def\bbl@tempa{austrian}
-\ifx\CurrentOption\bbl@tempa
+\ifx\CurrentOption\bbl@opt@austrian
   \def\dateaustrian{\def\today{\number\day.~\ifnum1=\month
     J\"anner\else \month@german\fi \space\number\year}}
 \fi
