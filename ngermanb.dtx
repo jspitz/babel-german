@@ -42,7 +42,7 @@
 %<germanb>\ProvidesLanguage{ngermanb}
 %\fi
 %\ProvidesFile{ngermanb.dtx}
-        [2016/11/03 v2.10dev German support for babel (new orthography)]
+        [2016/11/05 v2.10dev German support for babel (new orthography)]
 %\iffalse
 %
 %<*filedriver>
@@ -53,7 +53,7 @@
 \usepackage{url}
 \usepackage{array}
 \usepackage{booktabs}
-\usepackage[tableposition=top]{caption}
+\usepackage[tableposition=top,skip=5pt]{caption}
 \usepackage{marginnote}
 \newcommand*\TeXhax{\TeX hax}
 \newcommand*\babel{\textsf{babel}}
@@ -157,16 +157,17 @@
 %      |"-|	& 	An additional breakpoint that does still
 %             		allow for hyphenation at the breakpoints preset in
 %             		the hyphenation patterns (as opposed to |\-|).       	\tabularnewline
-%      |""|	& 	A breakpoint that does not output a hyphen if the line 
-%             		break is performed (useful for compound words with 
-%             		hyphen, e.\,g., |(Un-)""Sinn|).           		\tabularnewline
-%      |"~|	& 	An explicit hyphen without a breakpoint. Useful for
-%              		cases where the hyphen should stick at the following
-%			word, e.\,g., |bergauf und "~ab| .          		\tabularnewline
 %      |"=|	& 	An explicit hyphen with a breakpoint, allowing
 %             		for hyphenation at the other points preset in the
 %             		hyphenation patterns (as opposed to plain |-|);
-%			useful for long compounds.      			\tabularnewline
+%			useful for long compounds such as
+%			|IT"=Dienstleisterinnen|.      				\tabularnewline
+%      |"~|	& 	An explicit hyphen without a breakpoint. Useful for
+%              		cases where the hyphen should stick at the following
+%			syllable, e.\,g., |bergauf und "~ab| .			\tabularnewline
+%      |""|	& 	A breakpoint that does not output a hyphen if the line 
+%             		break is performed (consider parenthetical extensions
+%			as in |(pseudo"~)""wissenschaftlich|).           	\tabularnewline
 %      |"/|	& 	\newfeature{2.9}A slash that allows for a linebreak. 
 %			As opposed to |\slash{}|, hyphenation at the breakpoints
 %             		preset in the hyphenation patterns is still allowed.	\tabularnewline
