@@ -2,10 +2,11 @@
 %
 % File `ngermanb.dtx'
 %
-% Copyright 1989--2016 Johannes L. Braams
-%                      Bernd Raichle
-%                      Walter Schmidt,
-%                      Juergen Spitzmueller
+% Copyright 1989--2016
+%     Johannes L. Braams
+%     Bernd Raichle
+%     Walter Schmidt
+%     Juergen Spitzmueller
 % All rights reserved.
 % 
 % This file is part of the babel-german bundle,
@@ -36,10 +37,10 @@
 %<*dtx>
 \ProvidesFile{ngermanb.dtx}
 %</dtx>
-%<austrian>\ProvidesLanguage{naustrian}
-%<german>\ProvidesLanguage{ngerman}
-%<swiss>\ProvidesLanguage{nswissgerman}
-%<germanb>\ProvidesLanguage{ngermanb}
+%<naustrian>\ProvidesLanguage{naustrian}
+%<ngerman>\ProvidesLanguage{ngerman}
+%<nswissgerman>\ProvidesLanguage{nswissgerman}
+%<ngermanb>\ProvidesLanguage{ngermanb}
 %\fi
 %\ProvidesFile{ngermanb.dtx}
         [2016/11/05 v2.10dev German support for babel (new orthography)]
@@ -214,7 +215,7 @@
 %    which variety of German we are currently dealing with.
 % \changes{Version 2.9a=Version 2.10}{2016/11/03}{Add helper macros to identify the current option.}
 % \iffalse
-%<*germanb>
+%<*ngermanb>
 % \fi
 %    \begin{macrocode}
 \def\bbl@opt@ngerman{ngerman}
@@ -610,7 +611,7 @@
 \ldf@finish\CurrentOption
 %    \end{macrocode}
 % \iffalse
-%</germanb>
+%</ngermanb>
 % \fi
 %
 %  \subsection{\file{naustrian.ldf}, \file{ngerman.ldf} and \file{nswissgerman.ldf}}
@@ -628,13 +629,13 @@
 %    only load \file{ngermanb.ldf}, which does the real work:
 %
 % \iffalse
-%<*austrian|german|swiss>
+%<*naustrian|ngerman|nswissgerman>
 % \fi
 %    \begin{macrocode}
 \input ngermanb.ldf\relax
 %    \end{macrocode}
 % \iffalse
-%</austrian|german|swiss>
+%</naustrian|ngerman|nswissgerman>
 % \fi
 %
 %\PrintChanges
