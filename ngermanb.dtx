@@ -56,13 +56,12 @@
 \usepackage{booktabs}
 \usepackage[tableposition=top,skip=5pt]{caption}
 \usepackage{marginnote}
-\newcommand*\TeXhax{\TeX hax}
 \newcommand*\babel{\textsf{babel}}
 \newcommand*\Babel{\textsf{Babel}}
 \newcommand*\langvar{$\langle \it lang \rangle$}
 \newcommand*\graph[1]{$\langle$#1$\rangle$}
 \newcommand*\note[1]{}
-\newcommand*\Lopt[1]{\textsf{#1}}
+\newcommand*\Lopt[1]{\texttt{#1}}
 \newcommand*\file[1]{\texttt{#1}}
 \newcommand*\newfeature[1]{\marginnote{\footnotesize New feature\\in v.\,#1!}}
 \GlossaryMin = .33\textheight
@@ -78,14 +77,14 @@
 %
 % \changes{Version 2.9a=Version 2.10}{2016/11/07}{Improvements to the manual}
 %
-% \changes{Version 2.7}{2013/12/13}{Added support for variety \texttt{nswissgerman}.}
-% \changes{Version 2.7}{2013/12/13}{Revised \texttt{naustrian} support.}
+% \changes{Version 2.7}{2013/12/13}{Added support for variety \Lopt{nswissgerman}.}
+% \changes{Version 2.7}{2013/12/13}{Revised \Lopt{naustrian} support.}
 % \changes{Version 2.7}{2013/12/13}{Revised documentation: Turn the \babel{}
 %          manual chapter into a self-enclosed manual.}
 %
 % \changes{Version 2.6f}{1999/03/24}{Renamed from \file{germanb.ldf};
-%          language names changed from \texttt{german} and \texttt{austrian}
-%          to \texttt{ngerman} and \texttt{naustrian}.}
+%          language names changed from \Lopt{german} and \Lopt{austrian}
+%          to \Lopt{ngerman} and \Lopt{naustrian}.}
 %
 %  \title{Babel support for the German language (new~orthography)}
 %  \author{Johannes Braams \and Bernd Raichle \and Walter Schmidt \and J\"urgen Spitzm\"uller\thanks{%
@@ -243,7 +242,7 @@
 %    \end{macrocode}
 %
 %    If \file{ngermanb.ldf} is read as an option, i.e., by the |\usepackage|
-%    command, \texttt{ngerman} could be an `unknown' language, so we
+%    command, \Lopt{ngerman} could be an `unknown' language, so we
 %    have to make it known.  We check for the existence of
 %    |\l@ngerman| and issue a warning if it is unknown.
 %
@@ -254,9 +253,9 @@
 \fi
 %    \end{macrocode}
 %
-%    We set \texttt{naustrian} and \texttt{nswissgerman} as dialects
-%    of \texttt{ngerman}, since they use the same hyphenation patterns
-%    than \texttt{ngerman}. If no \texttt{ngerman} patterns are found,
+%    We set \Lopt{naustrian} and \Lopt{nswissgerman} as dialects
+%    of \Lopt{ngerman}, since they use the same hyphenation patterns
+%    than \Lopt{ngerman}. If no \Lopt{ngerman} patterns are found,
 %    we issue a warning.
 %    \changes{Version 2.8}{2016/11/01}{Only add dialects if the respective
 %                                       variety is loaded}
@@ -298,7 +297,7 @@
 %                                    \cs{captionsnaustrian} and
 %                                    \cs{captionsnswissgerman}.}
 % \changes{Version 2.7}{2013/12/13}{Changed \cs{enclname} in
-%                                     \texttt{naustrian} to
+%                                     \Lopt{naustrian} to
 %                                    \emph{Beilage(n)}.}
 % \changes{Version 2.6k}{2000/09/20}{Added \cs{glossaryname}}
 % \changes{Version 2.8}{2016/11/01}{Define trans-variational base captions
@@ -331,9 +330,9 @@
 %  \end{macro}
 %  \begin{macro}{\captionsngerman}
 %    The macro |\captionsngerman| is identical to |\@captionsngerman|,
-%    but only defined if \texttt{ngerman} is requested.
+%    but only defined if \Lopt{ngerman} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsngerman} if
-%                                    \texttt{ngerman} is requested.}
+%                                    \Lopt{ngerman} is requested.}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@ngerman
   \@namedef{captionsngerman}{%
@@ -346,9 +345,9 @@
 %    The macro |\captionsnaustrian| builds on |\@captionsngerman|, but
 %    redefines some strings following Austrian conventions (for the
 %    respective variants, cf. \cite{vwb}). It is only defined if
-%    \texttt{naustrian} is requested.
+%    \Lopt{naustrian} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsnaustrian} if
-%                                    \texttt{naustrian} is requested.}
+%                                    \Lopt{naustrian} is requested.}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@naustrian
   \@namedef{captionsnaustrian}{%
@@ -362,9 +361,9 @@
 %    The macro |\captionsnswissgerman| builds on |\@captionsngerman|, but
 %    redefines some strings following Swiss conventions (for the
 %    respective variants, cf. \cite{vwb}). It is only defined if
-%    \texttt{nswissgerman} is requested.
+%    \Lopt{nswissgerman} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsnswissgerman} if
-%                                    \texttt{nswissgerman} is requested.}
+%                                    \Lopt{nswissgerman} is requested.}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@nswissgerman
   \@namedef{captionsnswissgerman}{%
@@ -389,9 +388,9 @@
 %  \begin{macro}{\datengerman}
 %    The macro |\datengerman| redefines the command
 %    |\today| to produce German dates. It is only defined if
-%    \texttt{ngerman} is requested.
+%    \Lopt{ngerman} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{datengerman} if
-%                                    \texttt{ngerman} is requested.}
+%                                    \Lopt{ngerman} is requested.}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@ngerman
   \def\datengerman{\def\today{\number\day.~\month@ngerman
@@ -404,9 +403,9 @@
 %    \changes{Version 2.7}{2013/12/13}{Added \cs{datenswissgerman}.}
 %    The macro |\datenswissgerman| does the same for Swiss German dates.
 %    The result is identical to German. This macro is only defined if
-%    \texttt{nswissgerman} is requested.
+%    \Lopt{nswissgerman} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{datenswissgerman} if
-%                                    \texttt{nswissgerman} is requested.}
+%                                    \Lopt{nswissgerman} is requested.}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@nswissgerman
   \def\datenswissgerman{\def\today{\number\day.~\month@ngerman
@@ -420,9 +419,9 @@
 %    |\today| to produce Austrian versions of the German dates.
 %    Here, the naming of January (,,J\"anner``) differs from the
 %    other German varieties. The macro is only defined if
-%    \texttt{naustrian} is requested.
+%    \Lopt{naustrian} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{datenaustrian} if
-%                                    \texttt{naustrian} is requested.}
+%                                    \Lopt{naustrian} is requested.}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@naustrian
   \def\datenaustrian{\def\today{\number\day.~\ifnum1=\month
@@ -473,7 +472,7 @@
 % \changes{Version 2.6j}{1999/12/16}{Deactivate shorthands outside of
 %    German}
 % \changes{Version 2.7}{2013/12/13}{Deactivate shorthands also outside of
-%    \texttt{naustrian} and \texttt{nswissgerman}.}
+%    \Lopt{naustrian} and \Lopt{nswissgerman}.}
 %    \begin{macrocode}
 \expandafter\addto\csname noextras\CurrentOption\endcsname{%
   \bbl@deactivate{"}}
@@ -513,7 +512,7 @@
 %    For German texts we need to assure that |\frenchspacing| is
 %    turned on.
 % \changes{Version 2.6m}{2001/01/26}{Turn frenchspacing on, as in
-%    \texttt{german.sty}}
+%    \file{german.sty}}
 %    \begin{macrocode}
 \expandafter\addto\csname extras\CurrentOption\endcsname{%
   \bbl@frenchspacing}
@@ -582,7 +581,7 @@
 %    \end{macrocode}
 %    and some additional commands (hyphenation, line breaking and ligature control):
 %  \changes{Version 2.9}{2016/11/02}{Add \texttt{"/} shortcut for breakable slash
-%                                    (taken from \texttt{dutch.ldf})}
+%                                    (taken from \file{dutch.ldf})}
 %    \begin{macrocode}
 \declare@shorthand{ngerman}{"-}{\nobreak\-\bbl@allowhyphens}
 \declare@shorthand{ngerman}{"|}{%
@@ -623,9 +622,9 @@
 %            \file{ngerman.ldf} and \file{nswissgerman.ldf}.}
 %
 %  \Babel\ expects a \file{\langvar{}.ldf} file for each \langvar. So we create portmanteau
-%    ldf files for \texttt{naustrian}, \texttt{ngerman} and \texttt{nswissgerman}.\footnote{%
-%    For some \texttt{naustrian} and \texttt{ngerman}, this is not strictly necessary,
-%    since \babel\ provides aliases for these languages (pointing to \texttt{ngermanb}).
+%    ldf files for \Lopt{naustrian}, \Lopt{ngerman} and \Lopt{nswissgerman}.\footnote{%
+%    For \Lopt{naustrian} and \Lopt{ngerman}, this is not strictly necessary,
+%    since \babel\ provides aliases for these languages (pointing to \Lopt{ngermanb}).
 %    However, since \babel\ does not officially support these aliases anymore after
 %    the language definition files have been separated from the core, we provide
 %    the whole range of ldf files for the sake of completeness.} These files themselves

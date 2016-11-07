@@ -52,13 +52,12 @@
 \usepackage{booktabs}
 \usepackage[tableposition=top,skip=5pt]{caption}
 \usepackage{marginnote}
-\newcommand*\TeXhax{\TeX hax}
 \newcommand*\babel{\textsf{babel}}
 \newcommand*\Babel{\textsf{Babel}}
 \newcommand*\langvar{$\langle \it lang \rangle$}
 \newcommand*\graph[1]{$\langle$#1$\rangle$}
 \newcommand*\note[1]{}
-\newcommand*\Lopt[1]{\textsf{#1}}
+\newcommand*\Lopt[1]{\texttt{#1}}
 \newcommand*\file[1]{\texttt{#1}}
 \newcommand*\newfeature[1]{\marginnote{\footnotesize New feature\\in v.\,#1!}}
 \GlossaryMin = .33\textheight
@@ -76,8 +75,8 @@
 %
 % \changes{Version 2.7}{2013/12/13}{Revised documentation: Turn the \babel{}
 %          manual chapter into a self-enclosed manual.}
-% \changes{Version 2.7}{2013/12/13}{Added support for variety \texttt{swissgerman}.}
-% \changes{Version 2.7}{2013/12/13}{Revised \texttt{austrian} support.}
+% \changes{Version 2.7}{2013/12/13}{Added support for variety \Lopt{swissgerman}.}
+% \changes{Version 2.7}{2013/12/13}{Revised \Lopt{austrian} support.}
 %
 % \changes{Version 2.6d}{1996/07/10}{Replaced \cs{undefined} with
 %    \cs{@undefined} and \cs{empty} with \cs{@empty} for consistency
@@ -307,7 +306,7 @@
 %    \end{macrocode}
 %
 %    If \file{germanb.ldf} is read as an option, i.e. via |\usepackage|
-%    command, \texttt{german} could be an `unknown' language, so we
+%    command, \Lopt{german} could be an `unknown' language, so we
 %    have to make it known.  We check for the existence of
 %    |\l@german| and issue a warning if it is unknown.
 %
@@ -325,13 +324,13 @@
 \fi
 %    \end{macrocode}
 %
-%    We set \texttt{austrian} as a dialect of \texttt{german},
+%    We set \Lopt{austrian} as a dialect of \Lopt{german},
 %    since the Austrian variety uses the same hyphenation patterns as
 %    Germany's Standard German. If no German patterns are found, we issue
 %    a warning.
 % \changes{Version 2.0}{1991/04/23}{Now use \cs{adddialect} for
 %    austrian}
-% \changes{Version 2.8}{2016/11/01}{Only add Austrian dialect if \texttt{austrian} is loaded}
+% \changes{Version 2.8}{2016/11/01}{Only add Austrian dialect if \Lopt{austrian} is loaded}
 % \changes{Version 2.9}{2016/11/02}{Do not attempt to load \cs{l@austrian}, which does not exist}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@austrian
@@ -345,11 +344,11 @@
 %    \end{macrocode}
 %
 %    For the Swiss variety, we attempt to load the specific
-%    \texttt{swissgerman} hyphenation patterns and fall back to
-%    \texttt{german} if those are not available.
+%    \Lopt{swissgerman} hyphenation patterns and fall back to
+%    \Lopt{german} if those are not available.
 %    If no patterns are found, we issue a warning.
 % \changes{Version 2.7b}{2014/10/10}{Do not warn about missing swissgerman patterns
-%    if \texttt{swissgerman} is not loaded}
+%    if \Lopt{swissgerman} is not loaded}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@swissgerman
   \ifx\l@swissgerman\@undefined
@@ -391,7 +390,7 @@
 %                                    \cs{captionsaustrian} and
 %                                    \cs{captionsswissgerman}.}
 % \changes{Version 2.7}{2013/12/13}{Changed \cs{enclname} in
-%                                    \texttt{austrian} to
+%                                    \Lopt{austrian} to
 %                                    \emph{Beilage(n)}.}
 % \changes{Version 2.8}{2016/11/01}{Define trans-variational base captions
 %                                   which are loaded and modified by the varieties}
@@ -423,9 +422,9 @@
 %  \end{macro}
 %  \begin{macro}{\captionsgerman}
 %    The macro |\captionsgerman| is identical to |\@captionsgerman|,
-%    but only defined if \texttt{german} is requested.
+%    but only defined if \Lopt{german} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsgerman} if
-%                                    \texttt{german} is requested.}
+%                                    \Lopt{german} is requested.}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@german
   \@namedef{captionsgerman}{%
@@ -438,9 +437,9 @@
 %    The macro |\captionsaustrian| builds on |\@captionsgerman|, but
 %    redefines some strings following Austrian conventions (for the
 %    respective variants, cf. \cite{vwb}). It is only defined if
-%    \texttt{austrian} is requested.
+%    \Lopt{austrian} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsaustrian} if
-%                                    \texttt{austrian} is requested.}
+%                                    \Lopt{austrian} is requested.}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@austrian
   \@namedef{captionsaustrian}{%
@@ -454,9 +453,9 @@
 %    The macro |\captionsswissgerman| builds on |\@captionsgerman|, but
 %    redefines some strings following Swiss conventions (for the
 %    respective variants, cf. \cite{vwb}). It is only defined if
-%    \texttt{swissgerman} is requested.
+%    \Lopt{swissgerman} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{captionsswissgerman} if
-%                                    \texttt{swissgerman} is requested.}
+%                                    \Lopt{swissgerman} is requested.}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@swissgerman
   \@namedef{captionsswissgerman}{%
@@ -482,13 +481,13 @@
 %  \begin{macro}{\dategerman}
 %    The macro |\dategerman| redefines the command
 %    |\today| to produce German dates. It is only defined if
-%    \texttt{german} is requested.
+%    \Lopt{german} is requested.
 % \changes{Version 2.6f}{1997/10/01}{Use \cs{edef} to define
 %    \cs{today} to save memory}
 % \changes{Version 2.6f}{1998/03/28}{use \cs{def} instead of
 %    \cs{edef}}
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{dategerman} if
-%                                    \texttt{german} is requested.}
+%                                    \Lopt{german} is requested.}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@german
   \def\dategerman{\def\today{\number\day.~\month@german
@@ -500,10 +499,10 @@
 %  \begin{macro}{\dateswissgerman}
 %    \changes{Version 2.7}{2013/12/13}{Added \cs{dateswissgerman}.}
 %    The macro |\dateswissgerman| does the same for Swiss German dates. It
-%    is only defined if \texttt{swissgerman} is requested.
+%    is only defined if \Lopt{swissgerman} is requested.
 %    The result is identical to German.
 %    \changes{Version 2.8}{2016/11/01}{Only define \cs{dateswissgerman} if
-%                                      \texttt{swissgerman} is requested.}
+%                                      \Lopt{swissgerman} is requested.}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@swissgerman
   \def\dateswissgerman{\def\today{\number\day.~\month@german
@@ -517,13 +516,13 @@
 %    |\today| to produce Austrian versions of the German dates.
 %    Here, the naming of January (,,J\"anner``) differs from the
 %    other German varieties. The macro is only defined if
-%    \texttt{austrian} is requested.
+%    \Lopt{austrian} is requested.
 % \changes{Version 2.6f}{1997/10/01}{Use \cs{edef} to define
 %    \cs{today} to save memory}
 % \changes{Version 2.6f}{1998/03/28}{use \cs{def} instead of
 %    \cs{edef}}
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{dateaustrian} if
-%                                    \texttt{austrian} is requested.}
+%                                    \Lopt{austrian} is requested.}
 %    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@austrian
   \def\dateaustrian{\def\today{\number\day.~\ifnum1=\month
@@ -585,7 +584,7 @@
 % \changes{Version 2.6i}{1999/12/16}{Deactivate shorthands outside of
 %    German.}
 % \changes{Version 2.7}{2013/12/13}{Deactivate shorthands also outside of
-%    \texttt{austrian} and \texttt{swissgerman}.}
+%    \Lopt{austrian} and \Lopt{swissgerman}.}
 %    \begin{macrocode}
 \expandafter\addto\csname noextras\CurrentOption\endcsname{%
   \bbl@deactivate{"}}
@@ -632,7 +631,7 @@
 %    For German texts we need to assure that |\frenchspacing| is
 %    turned on.
 % \changes{Version 2.6k}{2001/01/26}{Turn frenchspacing on, as in
-%    \texttt{german.sty}}
+%    \file{german.sty}}
 %    \begin{macrocode}
 \expandafter\addto\csname extras\CurrentOption\endcsname{%
   \bbl@frenchspacing}
@@ -752,7 +751,7 @@
 %    \end{macrocode}
 %    and some additional commands (hyphenation, line breaking and ligature control):
 %  \changes{Version 2.9}{2016/11/02}{Add \texttt{"/} shortcut for breakable slash
-%                                    (taken from \texttt{dutch.ldf})}
+%                                    (taken from \file{dutch.ldf})}
 %    \begin{macrocode}
 \declare@shorthand{german}{"-}{\nobreak\-\bbl@allowhyphens}
 \declare@shorthand{german}{"|}{%
@@ -801,9 +800,9 @@
 %            \file{german.ldf} and \file{swissgerman.ldf}.}
 %
 %  \Babel\ expects a \file{\langvar{}.ldf} file for each \langvar. So we create portmanteau
-%    ldf files for \texttt{austrian}, \texttt{german} and \texttt{swissgerman}.\footnote{%
-%    For some \texttt{austrian} and \texttt{german}, this is not strictly necessary,
-%    since \babel\ provides aliases for these languages (pointing to \texttt{germanb}).
+%    ldf files for \Lopt{austrian}, \Lopt{german} and \Lopt{swissgerman}.\footnote{%
+%    For \Lopt{austrian} and \Lopt{german}, this is not strictly necessary,
+%    since \babel\ provides aliases for these languages (pointing to \Lopt{germanb}).
 %    However, since \babel\ does not officially support these aliases anymore after
 %    the language definition files have been separated from the core, we provide
 %    the whole range of ldf files for the sake of completeness.} These files themselves
