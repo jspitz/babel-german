@@ -43,7 +43,7 @@
 %<ngermanb>\ProvidesLanguage{ngermanb}
 %\fi
 %\ProvidesFile{ngermanb.dtx}
-        [2016/11/05 v2.10dev German support for babel (new orthography)]
+        [2018/03/28 v2.10dev German support for babel (new orthography)]
 %\iffalse
 %
 %<*filedriver>
@@ -102,13 +102,20 @@
 %
 %    The file \file{ngermanb.ldf} provides the \babel\ package with all language
 %    definition macros (language specific strings and settings) for the German
-%    language, including the Austrian and Swiss varieties of German. Furthermore,
-%    it assures that the correct hyphenation patterns for the respective language
-%    or variety are used.\footnote{The file \file{ngermanb.ldf} started as a
-%    re-implementation of the package \file{ngerman.sty} by Bernd Raichle (cf. \cite{gerdoc}),
-%    which itself builds on \file{german.sty}, originally developed by Hubert Partl
-%    (cf. \cite{HP}) and later maintained by Bernd Raichle as well.
-%    The re-implementation was done by Johannes Braams.}
+%    language, including the Austrian and Swiss varieties of German.\footnote{%
+%              The file \file{ngermanb.ldf} started as a re-implementation of the
+%              package \file{ngerman.sty} by Bernd Raichle (cf. \cite{gerdoc}),
+%              which itself builds on \file{german.sty}, originally developed by
+%              Hubert Partl (cf. \cite{HP}) and later maintained by Bernd Raichle
+%              as well. The initial re-implementation was done by Johannes Braams.}
+%    Furthermore, it assures that the correct hyphenation patterns for the respective
+%    language or variety are used.\footnote{%
+%              Currently, these are the default hyphenation patterns for post-1996 German
+%              spelling (\texttt{dehyphn-x} via the \textsf{hyph-utf8} \cite{hyph-utf8}  package).
+%              For some years now, ever-improving ,experimental` new hyphenation patterns are
+%              available via the \textsf{dehyph-exptl} package \cite{exptl}. They are not used
+%              by \textsf{babel-german} yet due to their experimental status. Please refer
+%              to the documentation of this package for details and usage instructions.}
 %    The file adheres to the reformed (1996\,ff.) orthography.
 %    For traditional (1901--1996) German orthography support,
 %    please refer to the complementary |germanb.ldf| file.
@@ -183,6 +190,7 @@
 %     \end{center}
 %    \end{table}
 %
+%    \enlargethispage{\baselineskip}
 %    Table~\ref{tab:more-quote} lists some \babel\ macros for quotation marks
 %    that might be used as an alternative to the quotation mark shorthands
 %    provided by \file{ngermanb.ldf}.
@@ -650,8 +658,14 @@
 %    \bibitem{babel} Braams, Johannes and Bezos, Javier:
 %       \emph{Babel}.
 %       \url{http://www.ctan.org/pkg/babel}.
+%    \bibitem{exptl} Deutschsprachige Trennmustermannschaft:
+%       \emph{dehyph-exptl -- Experimental hyphenation patterns for the German language}.
+%       \url{https://ctan.org/pkg/dehyph-exptl}.
 %    \bibitem{HP} Partl, Hubert:
 %      \emph{German \TeX}, \emph{TUGboat} 9/1 (1988), p.~70--72.
+%    \bibitem{hyph-utf8} Manuel P\'egouri\'e-Gonnard et al.:
+%      \emph{hyph-utf8 -- Hyphenation patterns expressed in UTF-8}.
+%       \url{https://ctan.org/pkg/hyph-utf8}.
 %    \bibitem{gerdoc} Raichle, Bernd:
 %       \emph{German}.
 %       \url{http://www.ctan.org/pkg/german}.
