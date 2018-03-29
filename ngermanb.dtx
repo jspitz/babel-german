@@ -43,7 +43,7 @@
 %<ngermanb>\ProvidesLanguage{ngermanb}
 %\fi
 %\ProvidesFile{ngermanb.dtx}
-        [2018/03/29 v2.10 German support for babel (new orthography)]
+        [2018/03/29 v2.10 German support for babel (post-1996 orthography)]
 %\iffalse
 %
 %<*filedriver>
@@ -56,6 +56,7 @@
 \usepackage{booktabs}
 \usepackage[tableposition=top,skip=5pt]{caption}
 \usepackage{marginnote}
+\usepackage[pdfusetitle,pdfborder={0 0 0},pdfborderstyle={}]{hyperref}
 \newcommand*\babel{\textsf{babel}}
 \newcommand*\Babel{\textsf{Babel}}
 \newcommand*\langvar{$\langle \it lang \rangle$}
@@ -86,40 +87,33 @@
 %          language names changed from \Lopt{german} and \Lopt{austrian}
 %          to \Lopt{ngerman} and \Lopt{naustrian}.}
 %
-%  \title{Babel support for the German language (new~orthography)}
+%  \title{Babel support for the German language (post-1996~orthography)}
 %  \author{Johannes Braams \and Bernd Raichle \and Walter Schmidt \and J\"urgen Spitzm\"uller\thanks{%
 %         Current maintainer. Please report issues via \protect\url{https://github.com/jspitz/babel-german}.}}
 %  \date{\fileversion\ (\filedate)}
 %  \maketitle
 %
 %    \begin{abstract}
-%      \noindent This manual documents the \babel\ language definition file \file{ngermanb.ldf}
-%      for German (new orthography).
-%      The file is part of the \textsf{babel-german} bundle.
+%      \noindent This manual documents \babel\ language support for German (post-1996 orthography),
+%      including support for the Austrian and Swiss varieties of German.
+%      The manual is part of the \textsf{babel-german} bundle.
 %    \end{abstract}
 %
 %    \section{Aim and usage}
 %
-%    The file \file{ngermanb.ldf} provides the \babel\ package with all language
-%    definition macros (language specific strings and settings) for the German
-%    language, including the Austrian and Swiss varieties of German.\footnote{%
+%    The \babel\ `language definition file' \file{ngermanb.ldf} documented in this manual provides
+%    the \babel\ package with all language specific strings, settings and commands needed for writing
+%    German texts, including texts in the Austrian and Swiss varieties of German.\footnote{%
 %              The file \file{ngermanb.ldf} started as a re-implementation of the
 %              package \file{ngerman.sty} by Bernd Raichle (cf.\,\cite{gerdoc}),
 %              which itself builds on \file{german.sty}, originally developed by
 %              Hubert Partl (cf.\,\cite{HP}) and later maintained by Bernd Raichle
 %              as well. The initial re-implementation was done by Johannes Braams.}
-%    Furthermore, it assures that the correct hyphenation patterns for the respective
-%    language or variety are used.\footnote{%
-%              Currently, these are the default hyphenation patterns for post-1996 German
-%              spelling (\texttt{dehyphn-x} via the \textsf{hyph-utf8} \cite{hyph-utf8}  package).
-%              For some years now, ever-improving `experimental' new hyphenation patterns are
-%              available via the \textsf{dehyph-exptl} package \cite{exptl}. They are not used
-%              by \textsf{babel-german} yet due to their experimental status. Please refer
-%              to the documentation of \textsf{dehyph-exptl} for instructions how to use these
-%              experimental patterns with \textsf{babel-german}.}
-%    The file adheres to the reformed (1996\,ff.) orthography.
+%    Furthermore, it is assured that the correct hyphenation patterns for the respective
+%    language or variety are used (see sec.~\ref{sec:patterns} for details).
+%    The file, and hence this manual, addresses the contemporary (`reformed', i.\,e., post-1996) orthography.
 %    For traditional (1901--1996) German orthography support,
-%    please refer to the complementary |germanb.ldf| file.
+%    please refer to the complementary \href{file:germanb.pdf}{\textsf{germanb} manual}.
 %
 %    In order to use the language definitions provided here, you need to use
 %    the \babel\ package and pass the respective language name as an
@@ -130,6 +124,8 @@
 %       \item |\usepackage[ngerman]{babel}|
 %       \item |\usepackage[naustrian]{babel}|
 %       \item |\usepackage[nswissgerman]{babel}|
+%       \item |\usepackage[nswissgerman.toss]{babel}|\newfeature{2.10}\footnote{%
+%              See sec.~\ref{sec:toss} on the \Lopt{toss} modifier.}
 %    \end{itemize}
 %    Using multiple varieties in parallel is possible;
 %    consult the \babel\ manual \cite{babel} for details.
@@ -141,7 +137,8 @@
 %    characters as well as for better control of hyphenation, line breaks
 %    and ligatures.
 %    Table~\ref{tab:german-quote} provides an overview of the shorthands
-%    that are provided by \file{ngermanb.ldf}.
+%    that are provided by \textsf{babel-german} for \Lopt{ngerman}, \Lopt{naustrian}
+%    and \Lopt{nswissgerman}.
 %    \begin{table}[htb]
 %     \begin{center}
 %     \small
@@ -194,9 +191,8 @@
 %    \end{table}
 %
 %    \enlargethispage{\baselineskip}
-%    Table~\ref{tab:more-quote} lists some \babel\ macros for quotation marks
-%    that might be used as an alternative to the quotation mark shorthands
-%    provided by \file{ngermanb.ldf}.
+%    \noindent Table~\ref{tab:more-quote} lists some \babel\ macros for quotation marks
+%    that might be used as an alternative to the quotation mark shorthands listed above.
 %    \begin{table}[!h]
 %     \begin{center}
 %     \small
@@ -216,6 +212,33 @@
 %     \end{tabular}
 %     \end{center}
 %    \end{table}
+%
+%   \section{Hyphenation patterns}\label{sec:patterns}
+%
+%   The question which hyphenation patterns are used by \Babel\ in case of the varieties of German needs some elaboration.
+%   There is a set of established hyphenation patterns for traditional and reformed German orthography that has been available
+%   wit \TeX\ distributions for a long time (currently, these are shipped in form of the \texttt{dehypht} and \texttt{dehyphn} files).
+%   These patterns, though, have many flaws (they produce wrong hyphenations, and not much is known about their construction). Therefore,
+%   a group of people developed completely new patterns that do much better, the so-called `experimental' new hyphenation patterns of German,
+%   distributed in the \textsf{dehyph-exptl} package \cite{exptl}.
+%   As opposed to the old patterns, the new ones undergo constant improvement. The price for this, however, is that hyphenation and thus
+%   the material output of documents is subject to change with pattern updates.
+%
+%   Modern engines (i.\,e., \texttt{xetex} and \texttt{luatex}) have already embraced those new patterns, i.\,e., they are activated on these
+%   engines by default. The classic \TeX\ engines (\texttt{tex}\slash\texttt{pdftex}), however, haven't: they continue to use the old patterns.
+%   The reason for this is one of \TeX's quality standards: refrain, if ever possible, from changing the output of user's documents in the wake
+%   of software updates.
+%
+%   This means that you need to explicitly activate the new patterns for a given document with the classic engines, should you want to use it
+%   instead of the old ones. With \Babel, this can be done quite easily by means of the \textsf{hyphsubst} \cite{hyphsubst} package, like this
+%   (please refer to \cite{exptl} and \cite{hyphsubst} for details):
+%   \begin{verbatim}
+%     \RequirePackage[ngerman=ngerman-x-latest]{hyphsubst}
+%     \documentclass{...}
+%     ...
+%     \usepackage[ngerman]{babel}
+%   \end{verbatim}\vspace{-\baselineskip}
+%   For \Lopt{naustrian} and \Lopt{nswissgerman}, the code needs to be adapted accordingly.
 %
 %   \section{Variety-specific options}\label{sec:toss}
 %
@@ -243,15 +266,11 @@
 %   \item To switch on the digraphical expansion only locally, you can use the boolean switch |\ntosstrue|. Likewise,
 %         |\ntossfalse| switches off (both locally and globally set) digraphical expansion.
 %   \end{itemize}
-%   This results in the following deviant behavior of two shorthands:
-%    \begin{table}[htb]
-%     \begin{center}
+%   This results in the following deviant behavior of two shorthands:\\
 %     \begin{tabular}{l>{\raggedright}p{.9\textwidth}}
 %      |"s|	& 	Expands to digraph \graph{ss}             \tabularnewline
 %      |"z|	& 	Expands to digraph \graph{sz}             \tabularnewline
 %     \end{tabular}
-%     \end{center}
-%    \end{table}
 %
 %
 % \StopEventually{}
@@ -740,6 +759,9 @@
 %    \bibitem{exptl} Deutschsprachige Trennmustermannschaft:
 %       \emph{dehyph-exptl -- Experimental hyphenation patterns for the German language}.
 %       \url{https://ctan.org/pkg/dehyph-exptl}.
+%    \bibitem{hyphsubst} Heiko Oberdiek:
+%       \emph{hyphsubst -- Substitute hyphenation patterns}.
+%       \url{https://ctan.org/pkg/hyphsubst}.
 %    \bibitem{HP} Partl, Hubert:
 %      \emph{German \TeX}, \emph{TUGboat} 9/1 (1988), p.~70--72.
 %    \bibitem{hyph-utf8} Manuel P\'egouri\'e-Gonnard et al.:
