@@ -272,7 +272,7 @@
 %   of people developed completely new patterns that do much better, the so-called `experimental' new hyphenation patterns of German,
 %   distributed in the \textsf{dehyph-exptl} package \cite{exptl}.
 %   As opposed to the old patterns, the new ones undergo constant improvement. The price for this, however, is that hyphenation and thus
-%   the material output of documents is subject to change with pattern updates.
+%   the typeset document is subject to change with, and only due to, pattern updates.
 %
 %   Modern engines (i.\,e., \texttt{xetex} and \texttt{luatex}) have already embraced those new patterns, i.\,e., they are activated on these engines by default.
 %   The classic \TeX\ engines (\texttt{tex}\slash\texttt{pdftex}), however, haven't: they continue to use the old patterns. The reason for this is one
@@ -298,12 +298,12 @@
 %   In\newfeature{2.10} Swiss (and Liechtensteinian) German writing, the use of \graph{\ss} is rather uncommon.
 %   Swiss writers would normally use \graph{ss} where German or Austrian writers use the \graph{\ss} character
 %   (e.\,g., \emph{Bu\ss e} vs. \emph{Busse}). When texts (or names) from other German speaking areas are quoted,
-%   however, the spelling is often maintained  (particularly in scholarly writing where the spelling of quoted text
-%   is not supposed to be touched).
+%   however, the spelling and hence the \graph{\ss} is often maintained  (particularly in scholarly writing where
+%   the spelling of quoted text is not supposed to be touched).
 %
 %   We assume that Swiss writers will normally input \graph{ss} directly when they mean \graph{ss}, and we assume furthermore
 %   that the \graph{\ss}-related shorthands |"s| and |"z| are useful also for Swiss writers when they actually need \graph{\ss},
-%   the more so since the \graph{\ss} is not as directly accessable on Swiss keyboards as it is on German and Austrian ones.
+%   the more so since the \graph{\ss} is not as directly accessible on Swiss keyboards as it is on German and Austrian ones.
 %   On the other hand, there might be occasions where writers want to transfer a text from German or Austrian Standard into Swiss
 %   Standard German and adapt the spelling on the fly, i.\,e., transform all \graph{\ss} into \graph{ss}.
 %
@@ -313,7 +313,7 @@
 %   \graph{ss} and \graph{sz}, rather than to \graph{\ss}. This is not the default behavior with
 %   \Lopt{swissgerman} since, as mentioned, there are situations when the \graph{\ss} is (and has to be) used in Swiss writing,
 %   and normally, no shorthand is needed to input (or output) two simple \graph{s} characters. You can opt-in (and out) digraphical
-%   expansion of \graph{ss} and \graph{sz} on a global and local level:
+%   expansion of |"s| and |"z| on a global and local level:
 %   \begin{itemize}
 %   \item To globally switch on the digraphical expansion, use the \Babel\ modifier \Lopt{toss} (read: `to \graph{ss}') with
 %         \Lopt{swissgerman}. I.\,e., pass \Lopt{swissgerman.toss} (rather than \Lopt{swissgerman}) as \babel\ option.
