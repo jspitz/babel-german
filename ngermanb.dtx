@@ -216,7 +216,7 @@
 %   \section{Hyphenation patterns}\label{sec:patterns}
 %
 %   The question which hyphenation patterns are used by \Babel\ in case of the varieties of German needs some elaboration.
-%   There is a set of established hyphenation patterns for traditional and reformed German orthography that has been available
+%   There is a set of established hyphenation patterns for pre- and post-1996 German orthography that has been available
 %   wit \TeX\ distributions for a long time (currently, these are shipped in form of the \texttt{dehypht} and \texttt{dehyphn} files).
 %   These patterns, though, have many flaws (they produce wrong hyphenations, and not much is known about their construction). Therefore,
 %   a group of people developed completely new patterns that do much better, the so-called `experimental' new hyphenation patterns of German,
@@ -252,10 +252,12 @@
 %   that the \graph{\ss}-related shorthands |"s| and |"z| are useful also for Swiss writers when they actually need \graph{\ss},
 %   the more so since the \graph{\ss} is not as directly accessable on Swiss keyboards as it is on German and Austrian ones.
 %   On the other hand, there might be occasions where writers want to transfer a text from German or Austrian Standard into Swiss
-%   Standard German and adapt the spelling on the fly, i.\,e., transform all \graph{\ss} into \graph{ss}.
+%   Standard German and adapt the spelling on the fly, i.\,e., transform all \graph{\ss} into \graph{ss}.\clearpage
 %
 %   For this special case, we provide an option to make the \graph{\ss}-related shorthands |"s| and |"z| expand to the
-%   respective digraphs, \graph{ss} and \graph{sz}, rather than to \graph{\ss}. This is not the default behavior with
+%   respective digraphs\footnote{In graphematics, the term \emph{digraph} denotes two characters that make a functional pair
+%   (which means, depending on the theoretical assumptions: they represent a single sound or they are semantically distinctive).},
+%   \graph{ss} and \graph{sz}, rather than to \graph{\ss}. This is not the default behavior with
 %   \Lopt{nswissgerman} since, as mentioned, there are situations when the \graph{\ss} is (and has to be) used in Swiss writing,
 %   and normally, no shorthand is needed to input (or output) two simple \graph{s} characters. You can opt-in (and out) digraphical
 %   expansion of \graph{ss} and \graph{sz} on a global and local level:
@@ -266,7 +268,7 @@
 %   \item To switch on the digraphical expansion only locally, you can use the boolean switch |\ntosstrue|. Likewise,
 %         |\ntossfalse| switches off (both locally and globally set) digraphical expansion.
 %   \end{itemize}
-%   This results in the following deviant behavior of two shorthands:\\
+%   Both these changes result in the following deviant behavior of two shorthands:\\
 %     \begin{tabular}{l>{\raggedright}p{.9\textwidth}}
 %      |"s|	& 	Expands to digraph \graph{ss}             \tabularnewline
 %      |"z|	& 	Expands to digraph \graph{sz}             \tabularnewline
