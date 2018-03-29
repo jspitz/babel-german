@@ -25,7 +25,7 @@
 % 
 % The Current Maintainer of this work is Juergen Spitzmueller.
 % \fi
-% \CheckSum{460}
+% \CheckSum{508}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -39,7 +39,7 @@
 %<germanb>\ProvidesLanguage{germanb}
 %\fi
 %\ProvidesFile{germanb.dtx}
-        [2018/03/28 v2.10dev German support for babel (traditional orthography)]
+        [2018/03/29 v2.10 German support for babel (traditional orthography)]
 %\iffalse
 %
 %<*filedriver>
@@ -200,13 +200,17 @@
 %                  	available for all other lower- and uppercase
 %                  	vowels (umlauts: |"a|, |"o|, |"u|, |"A|, |"O|,
 %                  	|"U|; tremata: |"e|, |"i|, |"E|, |"I|).			\tabularnewline
-%      |"s|	& 	German \graph{\ss} (shorthand for |\ss{}|).             \tabularnewline
+%      |"s|	& 	German \graph{\ss} (shorthand for |\ss{}|);
+%                       but cf. sec.~\ref{sec:toss}.                             \tabularnewline
 %      |"z|	& 	German \graph{\ss} (shorthand for |\ss{}|). 
-% 			The difference to |"s| is the uppercase version.	\tabularnewline
+% 			Differs to |"s| in uppercase version;
+%                       but cf. sec.~\ref{sec:toss}.                            \tabularnewline
 %      |"ck|	& 	\graph{ck}, hyphenated as \graph{k-k}.			\tabularnewline
 %      |"ff|	& 	\graph{ff}, hyphenated as \graph{ff-f};
 %                  	this is also implemented for \graph{l}, \graph{m}, 
-%                 	\graph{n}, \graph{p}, \graph{r} and \graph{t}. 		\tabularnewline
+%                 	\graph{n}, \graph{p}, \graph{r} and \graph{t}. 		
+%                       Please refer to sec.~\ref{sec:toss} for why this does not
+%                       include \graph{s}.                                      \tabularnewline
 %      |"S|	& 	|\uppercase{"s}|, typeset as \graph{SS} (\graph{\ss}
 %			must be written as \graph{SS} [or \graph{SZ}, see below] 
 %			in uppercase writing).					\tabularnewline
@@ -241,7 +245,7 @@
 %     \end{center}
 %    \end{table}
 %
-%    Table~\ref{tab:more-quote} lists some \babel\ macros for quotation marks
+%    \noindent Table~\ref{tab:more-quote} lists some \babel\ macros for quotation marks
 %    that might be used as an alternative to the quotation mark shorthands
 %    provided by \file{germanb.ldf}.
 %    \begin{table}[!h]
@@ -263,6 +267,48 @@
 %     \end{tabular}
 %     \end{center}
 %    \end{table}
+%
+%   \section{Variety-specific options}\label{sec:toss}
+%
+%   In\newfeature{2.10} Swiss (and Liechtensteinian) German writing, the use of \graph{\ss} is rather uncommon.
+%   Swiss writers would normally use \graph{ss} where German or Austrian writers use the \graph{\ss} character
+%   (e.\,g., \emph{Bu\ss e} vs. \emph{Busse}). When texts (or names) from other German speaking areas are quoted,
+%   however, the spelling is often maintained  (particularly in scholarly writing where the spelling of quoted text
+%   is not supposed to be touched).
+%
+%   We assume that Swiss writers will normally input \graph{ss} directly when they mean \graph{ss}, and we assume furthermore
+%   that the \graph{\ss}-related shorthands |"s| and |"z| are useful also for Swiss writers when they actually need \graph{\ss},
+%   the more so since the \graph{\ss} is not as directly accessable on Swiss keyboards as it is on German and Austrian ones.
+%   On the other hand, there might be occasions where writers want to transfer a text from German or Austrian Standard into Swiss
+%   Standard German and adapt the spelling on the fly, i.\,e., transform all \graph{\ss} into \graph{ss}.
+%
+%   For this special case, we provide an option to make the \graph{\ss}-related shorthands |"s| and |"z| expand to the
+%   respective digraphs, \graph{ss} and \graph{sz}, rather than to \graph{\ss}. This is not the default behavior with
+%   \Lopt{nswissgerman} since, as mentioned, there are situations when the \graph{\ss} is (and has to be) used in Swiss writing,
+%   and normally, no shorthand is needed to input (or output) two simple \graph{s} characters. You can opt-in (and out) digraphical
+%   expansion of \graph{ss} and \graph{sz} on a global and local level:
+%   \begin{itemize}
+%   \item To globally switch on the digraphical expansion, use the \Babel\ modifier \Lopt{toss} (read: `to \graph{ss}') with
+%         \Lopt{swissgerman}. I.\,e., pass \Lopt{swissgerman.toss} (rather than \Lopt{swissgerman}) as \babel\ option.
+%
+%   \item To switch on the digraphical expansion only locally, you can use the boolean switch |\tosstrue|. Likewise,
+%         |\tossfalse| switches off (both locally and globally set) digraphical expansion.
+%   \end{itemize}
+%   This results in the following deviant behavior of two shorthands:
+%    \begin{table}[!h]
+%     \begin{tabular}{l>{\raggedright}p{.9\textwidth}}
+%      |"s|	& 	Expands to digraph \graph{ss}             \tabularnewline
+%      |"z|	& 	Expands to digraph \graph{sz}             \tabularnewline
+%     \end{tabular}
+%    \end{table}
+%
+%    \noindent One further note related to the use of \graph{ss} in Swiss German: as opposed to other consonantial letters, the \graph{s}
+%    is excluded from the three consonant rule (\emph{Dreikonsonantenregel}) of traditional German spelling which prescribes
+%    that one of three identical consonants has to be omitted if a vowel follows the three consonants (i.\,e., \emph{Schiffahrt},
+%    not \emph{Schifffahrt}), except if the word is hyphenated (\emph{Schiff-fahrt}); the shorthands |"ff| etc. account for that).
+%    This does not apply to \graph{s}! In that case, always all three consonants are spelled out (e.\,g., \emph{Kongresssaal},
+%    not \emph{Kongressaal}). This is why we don't provide a shorthand for the \graph{sss} case.
+%
 %
 % \StopEventually{}
 %
@@ -585,6 +631,34 @@
 \expandafter\addto\csname extras\CurrentOption\endcsname{%
   \bbl@activate{"}}
 %    \end{macrocode}
+%
+%   \changes{Version 2.9a=Version 2.10}{2018/03/28}{Implement boolean switch
+%            \cs{tosstrue}\slash\cs{tossfalse} to customize \graph{\ss}-related
+%            shorthands in Swiss German context.}
+%   \changes{Version 2.9a=Version 2.10}{2018/03/28}{Implement modifier \Lopt{toss}
+%            to customize \graph{\ss}-related shorthands in Swiss German context.}
+%   \begin{macro}{toss}
+%   \begin{macro}{\tosstrue}
+%   \begin{macro}{\tossfalse}
+%    For Swiss German, we allow optionally to expand the \graph{\ss}-related
+%    shorthands the Swiss way, i.\,e. as \graph{ss} (globally, if the modifier \Lopt{toss}
+%    is used or locally if |\tosstrue|.).
+%    \begin{macrocode}
+\newif\iftoss\tossfalse
+\newif\ifbbl@toss\bbl@tossfalse
+\ifx\bbl@mod@swissgerman\@undefined\else
+  \@expandtwoargs\in@{,toss,}{,\bbl@mod@swissgerman,}
+  \ifin@
+    \tosstrue
+  \fi
+  \addto\extrasswissgerman{%
+    \iftoss\bbl@tosstrue\else\bbl@tossfalse\fi}
+\fi
+%    \end{macrocode}
+%   \end{macro}
+%   \end{macro}
+%   \end{macro}
+%
 %    Next, again depending on the option with which the language definition
 %    file has been loaded, the macro |\noextrasgerman|, |\noextrasaustrian|
 %    or |\noextrasswissgerman| is defined. 
@@ -597,6 +671,9 @@
 %    \begin{macrocode}
 \expandafter\addto\csname noextras\CurrentOption\endcsname{%
   \bbl@deactivate{"}}
+\ifx\CurrentOption\bbl@opt@swissgerman
+  \addto\noextrasswissgerman{\bbl@tossfalse}
+\fi
 %    \end{macrocode}
 %
 % \changes{Version 2.6a}{1995/02/15}{All the code to handle the active
@@ -678,11 +755,18 @@
 %  \begin{macro}{\dq}
 %    We save the original double quotation mark character in |\dq| to keep
 %    it available, the math accent |\"| can now be typed as |"|.
+%
+%    Furthermore, we define some helper macros for contextual \graph{\ss} handling.
 %    \begin{macrocode}
 \begingroup \catcode`\"12
 \def\x{\endgroup
+  \def\dq{"}
   \def\@SS{\mathchar"7019 }
-  \def\dq{"}}
+  \def\bbl@ss{\ifbbl@toss ss\else\textormath{\ss}{\@SS{}}\fi}
+  \def\bbl@SS{SS}
+  \def\bbl@sz{\ifbbl@toss sz\else\textormath{\ss}{\@SS{}}\fi}
+  \def\bbl@SZ{SZ}
+}
 \x
 %    \end{macrocode}
 %  \end{macro}
@@ -714,10 +798,10 @@
 % \changes{Version 2.6f}{1997/05/08}{use \cs{SS} instead of
 %    \texttt{SS}, removed braces after \cs{ss}} 
 %    \begin{macrocode}
-\declare@shorthand{german}{"s}{\textormath{\ss}{\@SS{}}}
-\declare@shorthand{german}{"S}{\SS}
-\declare@shorthand{german}{"z}{\textormath{\ss}{\@SS{}}}
-\declare@shorthand{german}{"Z}{SZ}
+\declare@shorthand{german}{"s}{\bbl@ss}
+\declare@shorthand{german}{"S}{\bbl@SS}
+\declare@shorthand{german}{"z}{\bbl@sz}
+\declare@shorthand{german}{"Z}{\bbl@SZ}
 %    \end{macrocode}
 %    German and French/Swiss quotation marks,
 %    \begin{macrocode}
