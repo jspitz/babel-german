@@ -241,29 +241,35 @@
 %   of software updates.
 %
 %   This means that you need to explicitly activate the new patterns for a given document with the classic engines, should you want to use them
-%   instead of the old ones. With \Babel, this can be done quite easily by means of the \textsf{hyphsubst} \cite{hyphsubst} package, like this
-%   (please refer to \cite{exptl} and \cite{hyphsubst} for details):
+%   instead of the old ones. With \Babel, this can be done quite easily by means of the \textsf{hyphsubst} \cite{hyphsubst} package:
 %   \begin{verbatim}
-%     \RequirePackage[ngerman=ngerman-x-latest]{hyphsubst}
-%     \documentclass{...}
-%     ...
+%     \usepackage[ngerman=ngerman-x-latest]{hyphsubst}
 %     \usepackage[ngerman]{babel}
 %   \end{verbatim}\vspace{-\baselineskip}
-%   For \Lopt{naustrian} and \Lopt{nswissgerman}, the code needs to be adapted accordingly.
+%   Since \Lopt{naustrian} and \Lopt{nswissgerman} use the same patterns as \Lopt{ngerman}, the given \textsf{hyphsubst} option activates
+%   the new patterns for all varieties; but note that \textsf{hyphsubst} must be loaded before \babel\ (please refer to \cite{exptl} and 
+%   \cite{hyphsubst} for details).
+%
+%   If you only want to use experimental patterns for one variety, you can do like so:
+%   \begin{verbatim}
+%     \usepackage{hyphsubst}
+%     \usepackage[ngerman,naustrian]{babel}
+%     \HyphSubstLet{naustrian}{ngerman-x-latest}
+%   \end{verbatim}\vspace{-\baselineskip}
 %
 %   \section{Variety-specific options}\label{sec:toss}
 %
 %   In\newfeature{2.10} Swiss (and Liechtensteinian) German writing, the use of \graph{\ss} is rather uncommon.
 %   Swiss writers would normally use \graph{ss} where German or Austrian writers use the \graph{\ss} character
-%   (e.\,g., \emph{Bu\ss e} vs. \emph{Busse}). When texts (or names) from other German speaking areas are quoted,
+%   (e.\,g., \emph{Bu\ss e} vs.\,\emph{Busse}). When texts (or names) from other German speaking areas are quoted,
 %   however, the spelling and hence the \graph{\ss} is often maintained  (particularly in scholarly writing where
 %   the spelling of quoted text is not supposed to be touched).
 %
-%   We assume that Swiss writers will normally input \graph{ss} directly when they mean \graph{ss}, and we assume furthermore
-%   that the \graph{\ss}-related shorthands |"s| and |"z| are useful also for Swiss writers when they actually need \graph{\ss},
+%   We assume that (1) Swiss writers normally input \graph{ss} directly when they mean \graph{ss}, and that (2) the
+%   \graph{\ss}-related shorthands |"s| and |"z| are useful also for Swiss writers when they actually need \graph{\ss},
 %   the more so since the \graph{\ss} is not as directly accessible on Swiss keyboards as it is on German and Austrian ones.
-%   On the other hand, there might be occasions where writers want to transfer a text from German or Austrian Standard into Swiss
-%   Standard German and adapt the spelling on the fly, i.\,e., transform all \graph{\ss} into \graph{ss}.\clearpage
+%   On the other hand, there might be occasions where writers want to transfer a text from German or Austrian into Swiss
+%   Standard German and adapt the spelling on the fly, i.\,e., transform all \graph{\ss} into \graph{ss}.
 %
 %   For this special case, we provide an option to make the \graph{\ss}-related shorthands |"s| and |"z| expand to the
 %   respective digraphs\footnote{In graphematics, the term \emph{digraph} denotes two characters that make a functional pair

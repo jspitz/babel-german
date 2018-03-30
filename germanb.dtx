@@ -289,24 +289,30 @@
 %   An exception is (pre-1996) Swiss German: here, the classic engines use the `experimental' patterns by default (since there were no patterns available
 %   previously anyway).
 %
-%   This all means that you need to explicitly activate the new patterns for a given document with the classic engines and in case of \Lopt{german}
-%   and \Lopt{austrian}, should you want to use them instead of the old ones.
-%   With \Babel, this can be done quite easily by means of the \textsf{hyphsubst} \cite{hyphsubst} package, like this (please refer to \cite{exptl}
-%   and \cite{hyphsubst} for details):
+%   So you need to explicitly activate the new patterns for a given document (except for \Lopt{swissgerman}) with the classic engines, should you
+%   want to use them instead of the old ones.
+%   With \Babel, this can be done quite easily by means of the \textsf{hyphsubst} \cite{hyphsubst} package:
 %   \begin{verbatim}
-%     \RequirePackage[german=german-x-latest]{hyphsubst}
-%     \documentclass{...}
-%     ...
+%     \usepackage[german=german-x-latest]{hyphsubst}
 %     \usepackage[german]{babel}
 %   \end{verbatim}\vspace{-\baselineskip}
-%   For \Lopt{austrian}, the code needs to be adapted accordingly.
+%   Since \Lopt{austrian} uses the same patterns as \Lopt{german}, the given \textsf{hyphsubst} option activates
+%   the new patterns for this variety as well; but note that \textsf{hyphsubst} must be loaded before \babel\ (please refer to \cite{exptl} and 
+%   \cite{hyphsubst} for details).
+%
+%   If you only want to use experimental patterns for one variety, you can do like so:
+%   \begin{verbatim}
+%     \usepackage{hyphsubst}
+%     \usepackage[german,austrian]{babel}
+%     \HyphSubstLet{austrian}{german-x-latest}
+%   \end{verbatim}\vspace{-\baselineskip}
 %
 %
 %   \section{Variety-specific options}\label{sec:toss}
 %
 %   In\newfeature{2.10} Swiss (and Liechtensteinian) German writing, the use of \graph{\ss} is rather uncommon.
 %   Swiss writers would normally use \graph{ss} where German or Austrian writers use the \graph{\ss} character
-%   (e.\,g., \emph{Bu\ss e} vs. \emph{Busse}). When texts (or names) from other German speaking areas are quoted,
+%   (e.\,g., \emph{Bu\ss e} vs.\,\emph{Busse}). When texts (or names) from other German speaking areas are quoted,
 %   however, the spelling and hence the \graph{\ss} is often maintained  (particularly in scholarly writing where
 %   the spelling of quoted text is not supposed to be touched).
 %
