@@ -39,7 +39,7 @@
 %<germanb>\ProvidesLanguage{germanb}
 %\fi
 %\ProvidesFile{germanb.dtx}
-        [2018/03/29 v2.10 German support for babel (pre-1996 orthography)]
+        [2018/12/08 v2.11 German support for babel (pre-1996 orthography)]
 %\iffalse
 %
 %<*filedriver>
@@ -821,12 +821,12 @@
 %   Now we can define the doublequote shorthands: the umlauts,
 % \changes{Version 2.6c}{1996/05/30}{added the \cs{allowhyphens}}
 %    \begin{macrocode}
-\declare@shorthand{german}{"a}{\textormath{\"{a}\allowhyphens}{\ddot a}}
-\declare@shorthand{german}{"o}{\textormath{\"{o}\allowhyphens}{\ddot o}}
-\declare@shorthand{german}{"u}{\textormath{\"{u}\allowhyphens}{\ddot u}}
-\declare@shorthand{german}{"A}{\textormath{\"{A}\allowhyphens}{\ddot A}}
-\declare@shorthand{german}{"O}{\textormath{\"{O}\allowhyphens}{\ddot O}}
-\declare@shorthand{german}{"U}{\textormath{\"{U}\allowhyphens}{\ddot U}}
+\declare@shorthand{german}{"a}{\textormath{\"{a}\bbl@allowhyphens}{\ddot a}}
+\declare@shorthand{german}{"o}{\textormath{\"{o}\bbl@allowhyphens}{\ddot o}}
+\declare@shorthand{german}{"u}{\textormath{\"{u}\bbl@allowhyphens}{\ddot u}}
+\declare@shorthand{german}{"A}{\textormath{\"{A}\bbl@allowhyphens}{\ddot A}}
+\declare@shorthand{german}{"O}{\textormath{\"{O}\bbl@allowhyphens}{\ddot O}}
+\declare@shorthand{german}{"U}{\textormath{\"{U}\bbl@allowhyphens}{\ddot U}}
 %    \end{macrocode}
 %    tremata,
 %    \begin{macrocode}
@@ -881,17 +881,20 @@
 \def\bbl@insertff{%
   \if f\bbl@nextff
     \expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi
-  {\relax\discretionary{ff-}{f}{ff}\allowhyphens}{f\bbl@nextff}}
+  {\relax\discretionary{ff-}{f}{ff}\bbl@allowhyphens}{f\bbl@nextff}}
 \let\bbl@nextff=f
 %    \end{macrocode}
 %    and some additional commands (hyphenation, line breaking and ligature control):
 %  \changes{Version 2.9}{2016/11/02}{Add \texttt{"/} shortcut for breakable slash
 %                                    (taken from \file{dutch.ldf})}
+%  \changes{Version 2.9b=Version 2.11}{2018/12/08}{Fix old hyphenation regression introduced with \babel\ 3.7
+%                                     (2002) in a number of shorthands (change of meaning of \cs{allowhyphens}
+%                                      vs. \cs{bbl@allowhyphens})}
 %    \begin{macrocode}
 \declare@shorthand{german}{"-}{\nobreak\-\bbl@allowhyphens}
 \declare@shorthand{german}{"|}{%
   \textormath{\penalty\@M\discretionary{-}{}{\kern.03em}%
-              \allowhyphens}{}}
+              \bbl@allowhyphens}{}}
 \declare@shorthand{german}{""}{\hskip\z@skip}
 \declare@shorthand{german}{"~}{\textormath{\leavevmode\hbox{-}}{-}}
 \declare@shorthand{german}{"=}{\penalty\@M-\hskip\z@skip}
@@ -909,7 +912,7 @@
 %    \begin{macrocode}
 \def\mdqon{\shorthandon{"}}
 \def\mdqoff{\shorthandoff{"}}
-\def\ck{\allowhyphens\discretionary{k-}{k}{ck}\allowhyphens}
+\def\ck{\bbl@allowhyphens\discretionary{k-}{k}{ck}\bbl@allowhyphens}
 %    \end{macrocode}
 %  \end{macro}
 %  \end{macro}

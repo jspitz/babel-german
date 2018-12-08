@@ -43,7 +43,7 @@
 %<ngermanb>\ProvidesLanguage{ngermanb}
 %\fi
 %\ProvidesFile{ngermanb.dtx}
-        [2018/03/29 v2.10 German support for babel (post-1996 orthography)]
+        [2018/12/08 v2.11 German support for babel (post-1996 orthography)]
 %\iffalse
 %
 %<*filedriver>
@@ -675,12 +675,12 @@
 %
 %    Now we can define the doublequote shorthands: the umlauts,
 %    \begin{macrocode}
-\declare@shorthand{ngerman}{"a}{\textormath{\"{a}\allowhyphens}{\ddot a}}
-\declare@shorthand{ngerman}{"o}{\textormath{\"{o}\allowhyphens}{\ddot o}}
-\declare@shorthand{ngerman}{"u}{\textormath{\"{u}\allowhyphens}{\ddot u}}
-\declare@shorthand{ngerman}{"A}{\textormath{\"{A}\allowhyphens}{\ddot A}}
-\declare@shorthand{ngerman}{"O}{\textormath{\"{O}\allowhyphens}{\ddot O}}
-\declare@shorthand{ngerman}{"U}{\textormath{\"{U}\allowhyphens}{\ddot U}}
+\declare@shorthand{ngerman}{"a}{\textormath{\"{a}\bbl@allowhyphens}{\ddot a}}
+\declare@shorthand{ngerman}{"o}{\textormath{\"{o}\bbl@allowhyphens}{\ddot o}}
+\declare@shorthand{ngerman}{"u}{\textormath{\"{u}\bbl@allowhyphens}{\ddot u}}
+\declare@shorthand{ngerman}{"A}{\textormath{\"{A}\bbl@allowhyphens}{\ddot A}}
+\declare@shorthand{ngerman}{"O}{\textormath{\"{O}\bbl@allowhyphens}{\ddot O}}
+\declare@shorthand{ngerman}{"U}{\textormath{\"{U}\bbl@allowhyphens}{\ddot U}}
 %    \end{macrocode}
 %    tremata,
 %    \begin{macrocode}
@@ -707,11 +707,14 @@
 %    and some additional commands (hyphenation, line breaking and ligature control):
 %  \changes{Version 2.9}{2016/11/02}{Add \texttt{"/} shortcut for breakable slash
 %                                    (taken from \file{dutch.ldf})}
+%  \changes{Version 2.9b=Version 2.11}{2018/12/08}{Fix old hyphenation regression introduced with \babel\ 3.7
+%                                     (2002) in a number of shorthands (change of meaning of \cs{allowhyphens}
+%                                      vs. \cs{bbl@allowhyphens})}
 %    \begin{macrocode}
 \declare@shorthand{ngerman}{"-}{\nobreak\-\bbl@allowhyphens}
 \declare@shorthand{ngerman}{"|}{%
   \textormath{\penalty\@M\discretionary{-}{}{\kern.03em}%
-              \allowhyphens}{}}
+              \bbl@allowhyphens}{}}
 \declare@shorthand{ngerman}{""}{\hskip\z@skip}
 \declare@shorthand{ngerman}{"~}{\textormath{\leavevmode\hbox{-}}{-}}
 \declare@shorthand{ngerman}{"=}{\penalty\@M-\hskip\z@skip}
