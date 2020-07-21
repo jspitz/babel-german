@@ -2,7 +2,7 @@
 %
 % File `germanb.dtx'
 % 
-% Copyright 1989--2016
+% Copyright 1989--2020
 %     Johannes L. Braams
 %     Bernd Raichle
 %     Walter Schmidt
@@ -146,7 +146,7 @@
 %
 %    \begin{abstract}
 %      \noindent This manual documents \babel\ language support for German (pre-1996 orthography),
-%      including support for the Austrian and Swiss varieties of German.
+%      including support for the Austrian and Swiss (standard) varieties of German.
 %      The manual is part of the \textsf{babel-german} bundle.
 %    \end{abstract}
 %
@@ -154,7 +154,7 @@
 %
 %    The \babel\ `language definition file' \file{germanb.ldf} documented in this manual provides
 %    the \babel\ package with all language specific strings, settings and commands needed for writing
-%    German texts, including texts in the Austrian and Swiss varieties of German, in \emph{traditional
+%    German texts, including texts in the Austrian and Swiss (standard) varieties of German, in \emph{traditional
 %    (1901--1996) spelling}.\footnote{%
 %              The file \file{germanb.ldf} started as a re-implementation of the
 %              package \file{german.sty} (v.\,2.5b), which was originally
@@ -286,7 +286,7 @@
 %   Modern engines (i.\,e., \texttt{xetex} and \texttt{luatex}) have already embraced those new patterns, i.\,e., they are activated on these engines by default.
 %   The classic \TeX\ engines (\texttt{tex}\slash\texttt{pdftex}), however, haven't: they continue to use the old patterns. The reason for this is one
 %   of \TeX's quality standards: refrain, if ever possible, from changing the output of user's documents in the wake of software updates.
-%   An exception is (pre-1996) Swiss German: here, the classic engines use the `experimental' patterns by default (since there were no patterns available
+%   An exception is (pre-1996) Swiss Standard German: here, the classic engines use the `experimental' patterns by default (since there were no patterns available
 %   previously anyway).
 %
 %   So you need to explicitly activate the new patterns for a given document (except for \Lopt{swissgerman}) with the classic engines, should you
@@ -344,7 +344,7 @@
 %     \end{tabular}
 %    \end{table}
 %
-%    \noindent One further note related to the use of \graph{ss} in Swiss German. As opposed to other consonantial letters, the \graph{s}
+%    \noindent One further note related to the use of \graph{ss} in Swiss Standard German. As opposed to other consonantial letters, the \graph{s}
 %    is excluded from the three consonant rule (\emph{Dreikonsonantenregel}) of traditional German spelling which prescribes
 %    that one of three identical consonants has to be omitted if a vowel follows the three consonants (i.\,e., \emph{Schiffahrt},
 %    not \emph{Schifffahrt}), except if the word is hyphenated (\emph{Schiff-fahrt}); the shorthands |"ff| etc. account for that.
@@ -450,10 +450,10 @@
 \ifx\CurrentOption\bbl@opt@swissgerman
   \ifx\l@swissgerman\@undefined
     \ifx\l@german\@undefined
-      \@nopatterns{Swiss German (trad. orthography) and German (trad. orthography)}
+      \@nopatterns{Swiss Standard German (trad. orthography) and German (trad. orthography)}
       \adddialect\l@swissgerman0
     \else
-      \@nopatterns{Swiss German (trad. orthography)}
+      \@nopatterns{Swiss Standard German (trad. orthography)}
       \adddialect\l@swissgerman\l@german
     \fi
   \fi
@@ -595,7 +595,7 @@
 %
 %  \begin{macro}{\dateswissgerman}
 %    \changes{Version 2.7}{2013/12/13}{Added \cs{dateswissgerman}.}
-%    The macro |\dateswissgerman| does the same for Swiss German dates. It
+%    The macro |\dateswissgerman| does the same for Swiss Standard German dates. It
 %    is only defined if \Lopt{swissgerman} is requested.
 %    The result is identical to German.
 %    \changes{Version 2.8}{2016/11/01}{Only define \cs{dateswissgerman} if
@@ -676,13 +676,13 @@
 %
 %   \changes{Version 2.9a=Version 2.10}{2018/03/28}{Implement boolean switch
 %            \cs{tosstrue}\slash\cs{tossfalse} to customize \graph{\ss}-related
-%            shorthands in Swiss German context.}
+%            shorthands in Swiss Standard German context.}
 %   \changes{Version 2.9a=Version 2.10}{2018/03/28}{Implement modifier \Lopt{toss}
-%            to customize \graph{\ss}-related shorthands in Swiss German context.}
+%            to customize \graph{\ss}-related shorthands in Swiss Standard German context.}
 %   \begin{macro}{toss}
 %   \begin{macro}{\tosstrue}
 %   \begin{macro}{\tossfalse}
-%    For Swiss German, we allow optionally to expand the \graph{\ss}-related
+%    For Swiss Standard German, we allow optionally to expand the \graph{\ss}-related
 %    shorthands the Swiss way, i.\,e. as \graph{ss} (globally, if the modifier \Lopt{toss}
 %    is used or locally if |\tosstrue|.).
 %    \begin{macrocode}

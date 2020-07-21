@@ -21,7 +21,7 @@ This bundle is an extension to the babel package for multilingual
 typesetting. It provides all necessary macros, definitions and settings
 to typeset German documents. The bundle includes support for the
 traditional and reformed German orthography as well as for the Austrian
-and Swiss varieties of German.
+and Swiss (standard) varieties of German.
 
 
 == CONTENTS ==

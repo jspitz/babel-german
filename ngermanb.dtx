@@ -2,7 +2,7 @@
 %
 % File `ngermanb.dtx'
 %
-% Copyright 1989--2016
+% Copyright 1989--2020
 %     Johannes L. Braams
 %     Bernd Raichle
 %     Walter Schmidt
@@ -103,7 +103,7 @@
 %
 %    \begin{abstract}
 %      \noindent This manual documents \babel\ language support for German (post-1996 orthography),
-%      including support for the Austrian and Swiss varieties of German.
+%      including support for the Austrian and Swiss (standard) varieties of German.
 %      The manual is part of the \textsf{babel-german} bundle.
 %    \end{abstract}
 %
@@ -111,7 +111,7 @@
 %
 %    The \babel\ `language definition file' \file{ngermanb.ldf} documented in this manual provides
 %    the \babel\ package with all language specific strings, settings and commands needed for writing
-%    German texts, including texts in the Austrian and Swiss varieties of German.\footnote{%
+%    German texts, including texts in the Austrian and Swiss (standard) varieties of German.\footnote{%
 %              The file \file{ngermanb.ldf} started as a re-implementation of the
 %              package \file{ngerman.sty} by Bernd Raichle (cf.\,\cite{gerdoc}),
 %              which itself builds on \file{german.sty}, originally developed by
@@ -358,7 +358,7 @@
 \fi
 \ifx\CurrentOption\bbl@opt@nswissgerman
   \ifx\l@ngerman\@undefined
-    \@nopatterns{German (new orthography), needed by Swiss German (new orthography)}
+    \@nopatterns{German (new orthography), needed by Swiss Standard German (new orthography)}
     \adddialect\l@nswissgerman0
   \else
     \adddialect\l@nswissgerman\l@ngerman
@@ -487,7 +487,7 @@
 %
 %  \begin{macro}{\datenswissgerman}
 %    \changes{Version 2.7}{2013/12/13}{Added \cs{datenswissgerman}.}
-%    The macro |\datenswissgerman| does the same for Swiss German dates.
+%    The macro |\datenswissgerman| does the same for Swiss Standard German dates.
 %    The result is identical to German. This macro is only defined if
 %    \Lopt{nswissgerman} is requested.
 %  \changes{Version 2.8}{2016/11/01}{Only define \cs{datenswissgerman} if
@@ -554,13 +554,13 @@
 %
 %   \changes{Version 2.9a=Version 2.10}{2018/03/28}{Implement boolean switch
 %            \cs{ntosstrue}\slash\cs{ntossfalse} to customize \graph{\ss}-related
-%            shorthands in Swiss German context.}
+%            shorthands in Swiss Standard German context.}
 %   \changes{Version 2.9a=Version 2.10}{2018/03/28}{Implement modifier \Lopt{toss}
-%            to customize \graph{\ss}-related shorthands in Swiss German context.}
+%            to customize \graph{\ss}-related shorthands in Swiss Standard German context.}
 %   \begin{macro}{toss}
 %   \begin{macro}{\ntosstrue}
 %   \begin{macro}{\ntossfalse}
-%    For Swiss German, we allow optionally to expand the \graph{\ss}-related
+%    For Swiss Standard German, we allow optionally to expand the \graph{\ss}-related
 %    shorthands the Swiss way, i.\,e. as \graph{ss} (globally, if the modifier \Lopt{toss}
 %    is used or locally if |\ntosstrue|.).
 %    \begin{macrocode}
