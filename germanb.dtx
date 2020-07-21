@@ -25,7 +25,7 @@
 % 
 % The Current Maintainer of this work is Juergen Spitzmueller.
 % \fi
-% \CheckSum{508}
+% \CheckSum{513}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -39,7 +39,7 @@
 %<germanb>\ProvidesLanguage{germanb}
 %\fi
 %\ProvidesFile{germanb.dtx}
-        [2018/12/08 v2.11 German support for babel (pre-1996 orthography)]
+        [2020/07/21 v2.12 German support for babel (pre-1996 orthography)]
 %\iffalse
 %
 %<*filedriver>
@@ -818,6 +818,13 @@
 % \changes{Version 2.6a}{1995/02/15}{Use \cs{ddot} instead of
 %    \cs{@MATHUMLAUT}}
 %
+%    Since we need to add special cases for hyperref which needs hyperref's |\texorpdfstring|,
+%    we provide a dummy command for the case that hyperref is not loaded.
+% \changes{Version 2.9c=Version 2.12}{2020/07/21}{Properly handle shorthands in hyperref pdf strings}
+%    \begin{macrocode}
+\providecommand\texorpdfstring[2]{#1}
+%    \end{macrocode}
+%
 %   Now we can define the doublequote shorthands: the umlauts,
 % \changes{Version 2.6c}{1996/05/30}{added the \cs{allowhyphens}}
 %    \begin{macrocode}
@@ -875,7 +882,10 @@
 % \changes{Version 2.6f}{1998/06/15}{Copied the coding for \texttt{"f}
 %    from german.dtx version 2.5d} 
 %    \begin{macrocode}
-\declare@shorthand{german}{"f}{\textormath{\bbl@discff}{f}}
+\declare@shorthand{german}{"f}{%
+  \texorpdfstring{\textormath{\bbl@discff}{f}}% TeX string
+                 {f}% PDF string
+}
 \def\bbl@discff{\penalty\@M
   \afterassignment\bbl@insertff \let\bbl@nextff= }
 \def\bbl@insertff{%
@@ -893,10 +903,14 @@
 %    \begin{macrocode}
 \declare@shorthand{german}{"-}{\nobreak\-\bbl@allowhyphens}
 \declare@shorthand{german}{"|}{%
-  \textormath{\penalty\@M\discretionary{-}{}{\kern.03em}%
-              \bbl@allowhyphens}{}}
+  \texorpdfstring{\textormath{\penalty\@M\discretionary{-}{}{\kern.03em}\bbl@allowhyphens}{}}% TeX string
+                 {}% PDF string
+}
 \declare@shorthand{german}{""}{\hskip\z@skip}
-\declare@shorthand{german}{"~}{\textormath{\leavevmode\hbox{-}}{-}}
+\declare@shorthand{german}{"~}{%
+  \texorpdfstring{\textormath{\leavevmode\hbox{-}}{-}}% tex string
+                 {-}% PDF string
+}
 \declare@shorthand{german}{"=}{\penalty\@M-\hskip\z@skip}
 \declare@shorthand{german}{"/}{\textormath
   {\bbl@allowhyphens\discretionary{/}{}{/}\bbl@allowhyphens}{}}

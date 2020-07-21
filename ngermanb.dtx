@@ -29,7 +29,7 @@
 %                       by Bernd Raichle, Hubert Partl et.al.
 %
 % \fi
-% \CheckSum{403}
+% \CheckSum{407}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -43,7 +43,7 @@
 %<ngermanb>\ProvidesLanguage{ngermanb}
 %\fi
 %\ProvidesFile{ngermanb.dtx}
-        [2018/12/08 v2.11 German support for babel (post-1996 orthography)]
+        [2020/07/21 v2.12 German support for babel (post-1996 orthography)]
 %\iffalse
 %
 %<*filedriver>
@@ -673,6 +673,13 @@
 %    \end{macrocode}
 %  \end{macro}
 %
+%    Since we need to add special cases for hyperref which needs hyperref's |\texorpdfstring|,
+%    we provide a dummy command for the case that hyperref is not loaded.
+% \changes{Version 2.9c=Version 2.12}{2020/07/21}{Properly handle shorthands in hyperref pdf strings}
+%    \begin{macrocode}
+\providecommand\texorpdfstring[2]{#1}
+%    \end{macrocode}
+%
 %    Now we can define the doublequote shorthands: the umlauts,
 %    \begin{macrocode}
 \declare@shorthand{ngerman}{"a}{\textormath{\"{a}\bbl@allowhyphens}{\ddot a}}
@@ -713,10 +720,14 @@
 %    \begin{macrocode}
 \declare@shorthand{ngerman}{"-}{\nobreak\-\bbl@allowhyphens}
 \declare@shorthand{ngerman}{"|}{%
-  \textormath{\penalty\@M\discretionary{-}{}{\kern.03em}%
-              \bbl@allowhyphens}{}}
+  \texorpdfstring{\textormath{\penalty\@M\discretionary{-}{}{\kern.03em}\bbl@allowhyphens}{}}% TeX string
+                 {}% PDF string
+}
 \declare@shorthand{ngerman}{""}{\hskip\z@skip}
-\declare@shorthand{ngerman}{"~}{\textormath{\leavevmode\hbox{-}}{-}}
+\declare@shorthand{ngerman}{"~}{%
+  \texorpdfstring{\textormath{\leavevmode\hbox{-}}{-}}% tex string
+                 {-}% PDF string
+}
 \declare@shorthand{ngerman}{"=}{\penalty\@M-\hskip\z@skip}
 \declare@shorthand{ngerman}{"/}{\textormath
   {\bbl@allowhyphens\discretionary{/}{}{/}\bbl@allowhyphens}{}}
