@@ -2,7 +2,7 @@
 %
 % File `ngermanb.dtx'
 %
-% Copyright 1989--2020
+% Copyright 1989--2021
 %     Johannes L. Braams
 %     Bernd Raichle
 %     Walter Schmidt
@@ -29,7 +29,7 @@
 %                       by Bernd Raichle, Hubert Partl et.al.
 %
 % \fi
-% \CheckSum{407}
+% \CheckSum{409}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -43,7 +43,7 @@
 %<ngermanb>\ProvidesLanguage{ngermanb}
 %\fi
 %\ProvidesFile{ngermanb.dtx}
-        [2020/07/21 v2.12 German support for babel (post-1996 orthography)]
+        [2021/02/27 v2.13 German support for babel (post-1996 orthography)]
 %\iffalse
 %
 %<*filedriver>
@@ -299,23 +299,11 @@
 %
 %    \subsection{General settings}
 %
-%    First, we define some helper macros that help us to identify later on
-%    which variety of German we are currently dealing with.
-% \changes{Version 2.9a=Version 2.10}{2016/11/03}{Add helper macros to identify the current option.}
-% \iffalse
-%<*ngermanb>
-% \fi
-%    \begin{macrocode}
-\def\bbl@opt@ngerman{ngerman}
-\def\bbl@opt@ngermanb{ngermanb}
-\def\bbl@opt@naustrian{naustrian}
-\def\bbl@opt@nswissgerman{nswissgerman}
-%    \end{macrocode}
-%
 %    If \file{ngermanb.ldf} is read via the deprecated \babel\ option
 %    \Lopt{ngermanb}, we make it behave as if \Lopt{ngerman} was specified.
 %    \begin{macrocode}
-\ifx\CurrentOption\bbl@opt@ngermanb
+\def\tmpa{ngermanb}
+\ifx\CurrentOption\tmpa
   \def\CurrentOption{ngerman}
 \fi
 %    \end{macrocode}
@@ -325,6 +313,20 @@
 %    code of the \texttt{@} sign, etc.
 %    \begin{macrocode}
 \LdfInit\CurrentOption{captions\CurrentOption}
+%    \end{macrocode}
+%
+%    We define some helper macros that help us to identify later on
+%    which variety of German we are currently dealing with.
+% \changes{Version 2.9a=Version 2.10}{2016/11/03}{Add helper macros to identify the current option.}
+% \changes{Version 2.9d=Version 2.13}{2021/02/27}{Move option helper macros after \cs{LdfInit} to fix plain tex usage.}
+% \iffalse
+%<*ngermanb>
+% \fi
+%    \begin{macrocode}
+\def\bbl@opt@ngerman{ngerman}
+\def\bbl@opt@ngermanb{ngermanb}
+\def\bbl@opt@naustrian{naustrian}
+\def\bbl@opt@nswissgerman{nswissgerman}
 %    \end{macrocode}
 %
 %    If \file{ngermanb.ldf} is read as an option, i.e., by the |\usepackage|
