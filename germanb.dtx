@@ -25,7 +25,7 @@
 % 
 % The Current Maintainer of this work is Juergen Spitzmueller.
 % \fi
-% \CheckSum{513}
+% \CheckSum{522}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -358,9 +358,31 @@
 %
 %    \subsection{General settings}
 %
-%    First, we define some helper macros that help us to identify later on
+%
+%    If \file{germanb.ldf} is read via the deprecated  \babel\ option
+%    \Lopt{germanb}, we make it behave as if \Lopt{german} was specified.
+% \changes{Version 2.6m}{2008/06/01}{Corrected a typo}
+%    \begin{macrocode}
+\def\tmpa{germanb}
+\let\SaveCurrentOption\CurrentOption
+\ifx\CurrentOption\tmpa
+  \def\CurrentOption{german}
+\fi
+%    \end{macrocode}
+%
+%    The macro |\LdfInit| takes care of preventing that this file is
+%    loaded more than once with the same option, checking the category
+%    code of the \texttt{@} sign, etc.
+% \changes{Version 2.6d}{1996/11/02}{Now use \cs{LdfInit} to perform
+%    initial checks} 
+%    \begin{macrocode}
+\LdfInit\CurrentOption{captions\CurrentOption}
+%    \end{macrocode}
+%
+%    We define some helper macros that help us to identify later on
 %    which variety of German we are currently dealing with.
 % \changes{Version 2.9a=Version 2.10}{2016/11/03}{Add helper macros to identify the current option.}
+% \changes{Version 2.9d=Version 2.13}{2021/02/27}{Move option helper macros after \cs{LdfInit} to fix plain tex usage.}
 % \iffalse
 %<*germanb>
 % \fi
@@ -371,14 +393,11 @@
 \def\bbl@opt@swissgerman{swissgerman}
 %    \end{macrocode}
 %
-%    If \file{germanb.ldf} is read via the deprecated  \babel\ option
-%    \Lopt{germanb}, we make it behave as if \Lopt{german} was specified.
+% Some more work to make germanb behave like german.
 % \changes{Version 2.6l}{2008/03/17}{Making germanb behave like german
 %    needs some more work besides defining \cs{CurrentOption}}
-% \changes{Version 2.6m}{2008/06/01}{Corrected a typo}
 %    \begin{macrocode}
-\ifx\CurrentOption\bbl@opt@germanb
-  \def\CurrentOption{german}
+\ifx\SaveCurrentOption\bbl@opt@germanb
   \ifx\l@german\@undefined
     \@nopatterns{German (trad. orthography)}
     \adddialect\l@german0
@@ -391,15 +410,6 @@
     \let\noextrasgermanb\noextrasgerman
   }
 \fi
-%    \end{macrocode}
-%
-%    The macro |\LdfInit| takes care of preventing that this file is
-%    loaded more than once with the same option, checking the category
-%    code of the \texttt{@} sign, etc.
-% \changes{Version 2.6d}{1996/11/02}{Now use \cs{LdfInit} to perform
-%    initial checks} 
-%    \begin{macrocode}
-\LdfInit\CurrentOption{captions\CurrentOption}
 %    \end{macrocode}
 %
 %    If \file{germanb.ldf} is read as an option, i.e. via |\usepackage|
