@@ -241,21 +241,11 @@
 %   of software updates.
 %
 %   This means that you need to explicitly activate the new patterns for a given document with the classic engines, should you want to use them
-%   instead of the old ones. With \Babel, this can be done quite easily by means of the \textsf{hyphsubst} \cite{hyphsubst} package:
+%   instead of the old ones. With \Babel, this can be done easily by means of the \cs{babelprovide} command and the \textsf{hyphenrules} option:
 %   \begin{verbatim}
-%     \usepackage[ngerman=ngerman-x-latest]{hyphsubst}
-%     \usepackage[ngerman]{babel}
+%     \babelprovide[hyphenrules=ngerman-x-latest]{ngerman}
 %   \end{verbatim}\vspace{-\baselineskip}
-%   Since \Lopt{naustrian} and \Lopt{nswissgerman} use the same patterns as \Lopt{ngerman}, the given \textsf{hyphsubst} option activates
-%   the new patterns for all varieties; but note that \textsf{hyphsubst} must be loaded before \babel\ (please refer to \cite{exptl} and 
-%   \cite{hyphsubst} for details).
-%
-%   If you only want to use experimental patterns for one variety, you can do like so:
-%   \begin{verbatim}
-%     \usepackage{hyphsubst}
-%     \usepackage[ngerman,naustrian]{babel}
-%     \HyphSubstLet{naustrian}{ngerman-x-latest}
-%   \end{verbatim}\vspace{-\baselineskip}
+%   For \Lopt{naustrian} and \Lopt{nswissgerman}, use a respectively adapted version of the above.
 %
 %   \section{Variety-specific options}\label{sec:toss}
 %
@@ -794,9 +784,6 @@
 %    \bibitem{exptl} Deutschsprachige Trennmustermannschaft:
 %       \emph{dehyph-exptl -- Experimental hyphenation patterns for the German language}.
 %       \url{https://ctan.org/pkg/dehyph-exptl}.
-%    \bibitem{hyphsubst} Heiko Oberdiek:
-%       \emph{hyphsubst -- Substitute hyphenation patterns}.
-%       \url{https://ctan.org/pkg/hyphsubst}.
 %    \bibitem{HP} Partl, Hubert:
 %      \emph{German \TeX}, \emph{TUGboat} 9/1 (1988), p.~70--72.
 %    \bibitem{hyph-utf8} Manuel P\'egouri\'e-Gonnard et al.:
