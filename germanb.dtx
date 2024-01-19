@@ -2,7 +2,7 @@
 %
 % File `germanb.dtx'
 % 
-% Copyright 1989--2021
+% Copyright 1989--2024
 %     Johannes L. Braams
 %     Bernd Raichle
 %     Walter Schmidt
@@ -25,7 +25,7 @@
 % 
 % The Current Maintainer of this work is Juergen Spitzmueller.
 % \fi
-% \CheckSum{522}
+% \CheckSum{538}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -39,7 +39,7 @@
 %<germanb>\ProvidesLanguage{germanb}
 %\fi
 %\ProvidesFile{germanb.dtx}
-        [2021/02/27 v2.13 German support for babel (pre-1996 orthography)]
+        [2024/01/19 v2.14 German support for babel (pre-1996 orthography)]
 %\iffalse
 %
 %<*filedriver>
@@ -241,6 +241,16 @@
 %      |"/|	& 	\newfeature{2.9}A slash that allows for a linebreak. 
 %			As opposed to |\slash{}|, hyphenation at the breakpoints
 %             		preset in the hyphenation patterns is still allowed.	\tabularnewline
+%      |"*|	& 	\newfeature{2.14}An asterisk which assures the word can
+%                       still be hyphenated at its defined breakpoints.
+%                       Useful if you want to employ gender-sensitive writing
+%                       (,gender star`).					
+%                       Similar shorthands are available for the alternative
+%                       gender-sensitive spellings, |":| and |"_|.		\tabularnewline
+%      |"x|	& 	\newfeature{2.14}Inserts a gender mark which assures
+%                       the word can still be hyphenated at its defined breakpoints.
+%                       This is predefined to |*| but can be globally redefined
+%                       by redefining the macro |\def\mkgender{*}|.		\tabularnewline
 %      |"`|	& 	German left double quotes \graph{,,}.               	\tabularnewline
 %      |"'|	& 	German right double quotes \graph{``}.              	\tabularnewline
 %      |"<|	& 	French/Swiss left double quotes \graph{<<}.   		\tabularnewline
@@ -914,6 +924,16 @@
 \declare@shorthand{german}{"=}{\penalty\@M-\hskip\z@skip}
 \declare@shorthand{german}{"/}{\textormath
   {\bbl@allowhyphens\discretionary{/}{}{/}\bbl@allowhyphens}{}}
+%    \end{macrocode}
+%  and some shorthands to support gender-sensitive spelling:
+%  \changes{Version 2.9e=Version 2.14}{2024/01/19}{Add \texttt{"*}, \texttt{":}, \texttt{"\_}, and \texttt{"x}
+%                                     shorthands to support gender-sensitive writing}
+%    \begin{macrocode}
+\def\mkgender{*}
+\declare@shorthand{german}{":}{\nobreak:\bbl@allowhyphens}
+\declare@shorthand{german}{"*}{\nobreak*\bbl@allowhyphens}
+\declare@shorthand{german}{"_}{\nobreak\_\bbl@allowhyphens}
+\declare@shorthand{german}{"x}{\nobreak\mkgender\bbl@allowhyphens}
 %    \end{macrocode}
 %
 %  \begin{macro}{\mdqon}

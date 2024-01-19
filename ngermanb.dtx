@@ -2,7 +2,7 @@
 %
 % File `ngermanb.dtx'
 %
-% Copyright 1989--2021
+% Copyright 1989--2024
 %     Johannes L. Braams
 %     Bernd Raichle
 %     Walter Schmidt
@@ -29,7 +29,7 @@
 %                       by Bernd Raichle, Hubert Partl et.al.
 %
 % \fi
-% \CheckSum{409}
+% \CheckSum{425}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -43,7 +43,7 @@
 %<ngermanb>\ProvidesLanguage{ngermanb}
 %\fi
 %\ProvidesFile{ngermanb.dtx}
-        [2021/02/27 v2.13 German support for babel (post-1996 orthography)]
+        [2024/01/19 v2.14 German support for babel (post-1996 orthography)]
 %\iffalse
 %
 %<*filedriver>
@@ -192,6 +192,16 @@
 %      |"/|	& 	\newfeature{2.9}A slash that allows for a linebreak. 
 %			As opposed to |\slash{}|, hyphenation at the breakpoints
 %             		preset in the hyphenation patterns is still allowed.	\tabularnewline
+%      |"*|	& 	\newfeature{2.14}An asterisk which assures the word can
+%                       still be hyphenated at its defined breakpoints.
+%                       Useful if you want to employ gender-sensitive writing
+%                       (,gender star`).					
+%                       Similar shorthands are available for the alternative
+%                       gender-sensitive spellings, |":| and |"_|.		\tabularnewline
+%      |"x|	& 	\newfeature{2.14}Inserts a gender mark which assures
+%                       the word can still be hyphenated at its defined breakpoints.
+%                       This is predefined to |*| but can be globally redefined
+%                       by redefining the macro |\def\mkngender{*}|		\tabularnewline
 %      |"`|	& 	German left double quotes \graph{,,}.               	\tabularnewline
 %      |"'|	& 	German right double quotes \graph{``}.              	\tabularnewline
 %      |"<|	& 	French/Swiss left double quotes \graph{<<}.   		\tabularnewline
@@ -703,7 +713,7 @@
 \declare@shorthand{ngerman}{"<}{\flqq}
 \declare@shorthand{ngerman}{">}{\frqq}
 %    \end{macrocode}
-%    and some additional commands (hyphenation, line breaking and ligature control):
+%    some additional commands (hyphenation, line breaking and ligature control):
 %  \changes{Version 2.9}{2016/11/02}{Add \texttt{"/} shortcut for breakable slash
 %                                    (taken from \file{dutch.ldf})}
 %  \changes{Version 2.9b=Version 2.11}{2018/12/08}{Fix old hyphenation regression introduced with \babel\ 3.7
@@ -723,6 +733,16 @@
 \declare@shorthand{ngerman}{"=}{\penalty\@M-\hskip\z@skip}
 \declare@shorthand{ngerman}{"/}{\textormath
   {\bbl@allowhyphens\discretionary{/}{}{/}\bbl@allowhyphens}{}}
+%    \end{macrocode}
+%  and some shorthands to support gender-sensitive spelling:
+%  \changes{Version 2.9e=Version 2.14}{2024/01/19}{Add \texttt{"*}, \texttt{":}, \texttt{"\_}, and \texttt{"x}
+%                                     shorthands to support gender-sensitive writing}
+%    \begin{macrocode}
+\def\mkngender{*}
+\declare@shorthand{ngerman}{":}{\nobreak:\bbl@allowhyphens}
+\declare@shorthand{ngerman}{"*}{\nobreak*\bbl@allowhyphens}
+\declare@shorthand{ngerman}{"_}{\nobreak\_\bbl@allowhyphens}
+\declare@shorthand{ngerman}{"x}{\nobreak\mkngender\bbl@allowhyphens}
 %    \end{macrocode}
 %
 %  \begin{macro}{\mdqon}
