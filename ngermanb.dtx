@@ -29,7 +29,7 @@
 %                       by Bernd Raichle, Hubert Partl et.al.
 %
 % \fi
-% \CheckSum{425}
+% \CheckSum{505}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -134,6 +134,9 @@
 %       \setlength{\itemsep}{0pt}
 %       \item |\usepackage[ngerman]{babel}|
 %       \item |\usepackage[naustrian]{babel}|
+%       \item |\usepackage[ngerman.capsz]{babel}|\newfeature{2.14}\footnote{%
+%              See sec.~\ref{sec:capsz} on the \Lopt{capsz} modifier.}
+%       \item |\usepackage[naustrian.capsz]{babel}|
 %       \item |\usepackage[nswissgerman]{babel}|
 %       \item |\usepackage[nswissgerman.toss]{babel}|\newfeature{2.10}\footnote{%
 %              See sec.~\ref{sec:toss} on the \Lopt{toss} modifier.}
@@ -167,7 +170,8 @@
 % 			Differs to |"s| in uppercase version;
 %                       but cf. sec.~\ref{sec:toss}.                             \tabularnewline
 %      |"S|	& 	|\uppercase{"s}|, typeset as \graph{SS}(\graph{\ss}
-%			must be written as \graph{SS} in uppercase writing).	\tabularnewline
+%			is traditonally written as \graph{SS} in uppercase writing,
+%                       but cf. sec.~\ref{sec:capsz} if you prefer a capital eszett). \tabularnewline
 %      |"Z|	& 	|\uppercase{"z}|, typeset as \graph{SZ}. In traditional
 %			spelling, \graph{\ss} could also be written as \graph{SZ}
 %			instead of \graph{SS} in uppercase writing. Note that,
@@ -257,7 +261,26 @@
 %   \end{verbatim}\vspace{-\baselineskip}
 %   For \Lopt{naustrian} and \Lopt{nswissgerman}, use a respectively adapted version of the above.
 %
-%   \section{Variety-specific options}\label{sec:toss}
+%   \section{Variety-specific options}%
+%
+%    \subsection{Capital eszett letter}\label{sec:capsz}
+%
+%    In\newfeature{2.14} 2008, a capital variant of the letter \graph{\ss} has been included to the Unicode standard
+%    (U+1E9E), and in 2017, the capital eszett letter has been acknowledged in German orthography as a valid alternative
+%    to \graph{SS} in uppercase writing of \graph{\ss}. The letter differs from its miniscule counterpart in that it is
+%    usually more wide to match the form of uppercase letters.
+%
+%    If you want to use this letter, you can do so by using the \Babel\ modifier \Lopt{capsz}, which is supported
+%    for the ngerman and naustrian varieties. I.\,e., pass \Lopt{ngerman.capsz} or \Lopt{naustrian.capsz}
+%    (rather than \Lopt{ngerman} or \Lopt{naustrian}) as \babel\ option. As the eszett letter is not common
+%    in Swiss German writing in general, the option is not supported there. Similarly, the pre-1996 varieties
+%    do not support the letter either.
+%
+%    The modifier causes both |\MakeUppercase| and the |"S| shorthand to use the capital eszett letter.
+%    Note that this requires a font which actually contains the glyph (otherwise, you still get \graph{SS})
+%    and \LaTeX\ kernel 2023/06 at least.
+%
+%   \subsection{Handling of \texttt{"s} and \texttt{"z} in Swiss German}\label{sec:toss}
 %
 %   In\newfeature{2.10} Swiss (and Liechtensteinian) German writing, the use of \graph{\ss} is rather uncommon.
 %   Swiss writers would normally use \graph{ss} where German or Austrian writers use the \graph{\ss} character
@@ -564,7 +587,7 @@
 %   \begin{macro}{\ntossfalse}
 %    For Swiss Standard German, we allow optionally to expand the \graph{\ss}-related
 %    shorthands the Swiss way, i.\,e. as \graph{ss} (globally, if the modifier \Lopt{toss}
-%    is used or locally if |\ntosstrue|.).
+%    is used or locally if |\ntosstrue|).
 %    \begin{macrocode}
 \newif\ifntoss\ntossfalse
 \newif\ifbbl@ntoss\bbl@ntossfalse
@@ -581,6 +604,37 @@
 %   \end{macro}
 %   \end{macro}
 %
+%   \begin{macro}{capsz}
+%   \changes{Version 2.9e=Version 2.14}{2024/01/19}{Implement modifier \Lopt{capsz}
+%            to use capital eszett letter in Austrian and German varieties if possible.}
+%    For German and Austrian Standard German, we allow optionally to uppercase \graph{\ss}
+%    with the capital eszett letter rather as \graph{SS} if the font provides the glyph
+%    (if the modifier \Lopt{capsz} is used).
+%    \begin{macrocode}
+\newif\ifcapsz\capszfalse
+\newif\ifbbl@capsz\bbl@capszfalse
+\ifx\bbl@mod@ngerman\@undefined\else
+  \@expandtwoargs\in@{,capsz,}{,\bbl@mod@ngerman,}
+  \ifin@
+    \capsztrue
+  \fi
+  \addto\extrasngerman{%
+    \ifcapsz\bbl@capsztrue\bbl@csarg\xdef{casing@ngerman}{de-x-eszett}%
+    \else\bbl@csarg\xdef{casing@ngerman}{de}\bbl@capszfalse\fi}
+\fi
+\newif\if@at@capsz\@at@capszfalse
+\ifx\bbl@mod@naustrian\@undefined\else
+  \@expandtwoargs\in@{,capsz,}{,\bbl@mod@naustrian,}
+  \ifin@
+    \@at@capsztrue
+  \fi
+  \addto\extrasnaustrian{%
+    \if@at@capsz\bbl@capsztrue\bbl@csarg\xdef{casing@naustrian}{de-x-eszett}%
+    \else\bbl@csarg\xdef{casing@naustrian}{de}\bbl@capszfalse\fi}
+\fi
+%    \end{macrocode}
+%   \end{macro}
+%
 %    Next, again depending on the option with which the language definition
 %    file has been loaded, the macro |\noextrasngerman|, |\noextrasnaustrian|
 %    or |\noextrasnswissgerman| is defined. 
@@ -593,8 +647,22 @@
 %    \begin{macrocode}
 \expandafter\addto\csname noextras\CurrentOption\endcsname{%
   \bbl@deactivate{"}}
+%    \end{macrocode}
+%
+%    Now deactivate the settings that might have been done by the modifiers:
+%    \begin{macrocode}
 \ifx\CurrentOption\bbl@opt@nswissgerman
   \addto\noextrasnswissgerman{\bbl@ntossfalse}
+\fi
+\ifx\CurrentOption\bbl@opt@ngerman
+  \ifbbl@capsz
+    \addto\noextrasngerman{\bbl@capszfalse\bbl@csarg\xdef{casing@ngerman}{de}}
+  \fi
+\fi
+\ifx\CurrentOption\bbl@opt@naustrian
+  \ifbbl@capsz
+     \addto\noextrasnaustrian{\bbl@capszfalse\bbl@csarg\xdef{casing@naustrian}{de}}
+  \fi
 \fi
 %    \end{macrocode}
 %
@@ -656,6 +724,7 @@
 %    couple of `support' macros.
 %
 %
+%  \changes{Version 2.9e=Version 2.14}{2024/01/19}{Output capital eszett for \texttt{"S} if possible and required}
 %  \begin{macro}{\dq}
 %    We save the original double quotation mark character in |\dq| to keep
 %    it available, the math accent |\"| can now be typed as |"|.
@@ -667,7 +736,7 @@
   \def\dq{"}
   \def\@SS{\mathchar"7019 }
   \def\bbl@ss{\ifbbl@ntoss ss\else\textormath{\ss}{\@SS{}}\fi}
-  \def\bbl@SS{SS}
+  \def\bbl@SS{\ifbbl@capsz\MakeUppercase{\ss}\else SS\fi}
   \def\bbl@sz{\ifbbl@ntoss sz\else\textormath{\ss}{\@SS{}}\fi}
   \def\bbl@SZ{SZ}
 }
