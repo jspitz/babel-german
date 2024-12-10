@@ -29,7 +29,7 @@
 %                       by Bernd Raichle, Hubert Partl et.al.
 %
 % \fi
-% \CheckSum{505}
+% \CheckSum{544}
 %
 % \iffalse
 %    Tell the \LaTeX\ system who we are and write an entry on the
@@ -280,6 +280,10 @@
 %    The modifier causes both |\MakeUppercase| and the |"S| shorthand to use the capital eszett letter.
 %    Note that this requires a font which actually contains the glyph (otherwise, you still get \graph{SS})
 %    and \LaTeX\ kernel 2023/06 at least.
+%
+%    Note\newfeature{2.15} that you can also set the casing via |\babelprovide[casing=eszett]{<lang>}|.
+%    This is adhered to. If you want to disable such a global setting, you can do so by means of the
+%    modifier \Lopt{nocapsz}.
 %
 %   \subsection{Handling of \texttt{"s} and \texttt{"z} in Swiss German}\label{sec:toss}
 %
@@ -608,20 +612,38 @@
 %   \begin{macro}{capsz}
 %   \changes{Version 2.9e=Version 2.14}{2024/01/19}{Implement modifier \Lopt{capsz}
 %            to use capital eszett letter in Austrian and German varieties if possible.}
+%   \changes{Version 2.9f=Version 2.15}{2024/12/10}{Implement modifier \Lopt{nocapsz}
+%            to deactivate global capital eszett casing in Austrian and German varieties.
+%            Global settings are now adhered to if no modifier is used.}
 %    For German and Austrian Standard German, we allow optionally to uppercase \graph{\ss}
 %    with the capital eszett letter rather as \graph{SS} if the font provides the glyph
 %    (if the modifier \Lopt{capsz} is used).
 %    \begin{macrocode}
 \newif\ifcapsz\capszfalse
+\newif\ifnocapsz\nocapszfalse
 \newif\ifbbl@capsz\bbl@capszfalse
+\ifdefined\casing@ngerman
+  \let\save@casing@ngerman\casing@ngerman
+\else
+  \xdef\save@casing@naustrian{de}
+\fi
+\ifdefined\casing@naustrian
+  \let\save@casing@naustrian\casing@naustrian
+\else
+  \xdef\save@casing@naustrian{de}
+\fi
 \ifx\bbl@mod@ngerman\@undefined\else
   \@expandtwoargs\in@{,capsz,}{,\bbl@mod@ngerman,}
   \ifin@
     \capsztrue
   \fi
+  \@expandtwoargs\in@{,nocapsz,}{,\bbl@mod@ngerman,}
+  \ifin@
+    \nocapsztrue
+  \fi
   \addto\extrasngerman{%
     \ifcapsz\bbl@capsztrue\bbl@csarg\xdef{casing@ngerman}{de-x-eszett}%
-    \else\bbl@csarg\xdef{casing@ngerman}{de}\bbl@capszfalse\fi}
+    \else\ifnocapsz\bbl@csarg\xdef{casing@ngerman}{de}\fi\bbl@capszfalse\fi}
 \fi
 \newif\if@at@capsz\@at@capszfalse
 \ifx\bbl@mod@naustrian\@undefined\else
@@ -629,9 +651,13 @@
   \ifin@
     \@at@capsztrue
   \fi
+  \@expandtwoargs\in@{,nocapsz,}{,\bbl@mod@naustrian,}
+  \ifin@
+    \nocapsztrue
+  \fi
   \addto\extrasnaustrian{%
     \if@at@capsz\bbl@capsztrue\bbl@csarg\xdef{casing@naustrian}{de-x-eszett}%
-    \else\bbl@csarg\xdef{casing@naustrian}{de}\bbl@capszfalse\fi}
+    \else\ifnocapsz\bbl@csarg\xdef{casing@naustrian}{de}\fi\bbl@capszfalse\fi}
 \fi
 %    \end{macrocode}
 %   \end{macro}
@@ -657,12 +683,12 @@
 \fi
 \ifx\CurrentOption\bbl@opt@ngerman
   \ifbbl@capsz
-    \addto\noextrasngerman{\bbl@capszfalse\bbl@csarg\xdef{casing@ngerman}{de}}
+    \addto\noextrasngerman{\bbl@capszfalse\bbl@csarg\xdef{casing@ngerman}{\save@casing@ngerman}}
   \fi
 \fi
 \ifx\CurrentOption\bbl@opt@naustrian
   \ifbbl@capsz
-     \addto\noextrasnaustrian{\bbl@capszfalse\bbl@csarg\xdef{casing@naustrian}{de}}
+     \addto\noextrasnaustrian{\bbl@capszfalse\bbl@csarg\xdef{casing@naustrian}{\save@casing@naustrian}}
   \fi
 \fi
 %    \end{macrocode}
