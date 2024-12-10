@@ -51,7 +51,6 @@
 \usepackage{array}
 \usepackage{booktabs}
 \usepackage[tableposition=top,skip=5pt]{caption}
-\usepackage{marginnote}
 \usepackage[svgnames]{xcolor}
 \usepackage[pdfusetitle]{hyperref}
 \hypersetup{%
@@ -68,7 +67,9 @@
 \newcommand*\note[1]{}
 \newcommand*\Lopt[1]{\texttt{#1}}
 \newcommand*\file[1]{\texttt{#1}}
-\newcommand*\newfeature[1]{\marginnote{\footnotesize New feature\\in v.\,#1!}}
+\newcommand*\newfeature[1]{%
+  \leavevmode\vadjust{\smash{\llap{\parbox[t]{\marginparwidth}{\raggedleft\footnotesize New feature\\in v.\,#1!}\kern\marginparsep\hspace{3em}}}}%
+}
 \GlossaryMin = .33\textheight
 
 \begin{document}
